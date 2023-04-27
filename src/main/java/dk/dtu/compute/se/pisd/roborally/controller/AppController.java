@@ -37,6 +37,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -110,13 +112,31 @@ public class AppController implements Observer {
         }
     }
 
-    public void saveGame() {
+    public void saveGame()
+    {
         // XXX needs to be implemented eventually
+        File fl = new File("Game1"); //TSR
+
+        try {
+            if (fl.createNewFile()) {
+                System.out.println("File created: " + fl.getName());
+            } else {
+                System.out.println("File already exist");
+            }
+        } catch (IOException var3) {
+        }
     }
 
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
+        File fl = new File("Game1"); // TSR
+
+        if (fl.canRead()) {
+            System.out.println("File opened: " + fl.getName());
+        } else {
+            System.out.println("File does not exist");
+        }
         if (gameController == null) {
             newGame();
         }
