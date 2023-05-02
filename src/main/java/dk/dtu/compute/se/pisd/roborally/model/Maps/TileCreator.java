@@ -45,12 +45,47 @@ public class TileCreator extends SpaceView  implements ViewObserver {
                     "; -fx-background-size: " + sizeX + "px " + sizeY + "px"
             );
             // FAKE START
-            if (xNum==9&&yNum==8)
+            if (xNum==9&&yNum==8) // 9I
                 space.setStyle("-fx-background-image: url(StartSpot.jpg)" +
                         "; -fx-background-position: 0% 0%" +
                         "; -fx-background-size: 40px 40px"
                 );
-            //
+            // ------------ CHECKPOINTS ------------ //
+            if (xNum==1&&yNum==13) // N1 CP1
+                space.setStyle("-fx-background-image: url(CP1.jpg)" +
+                        "; -fx-background-position: 0% 0%" +
+                        "; -fx-background-size: 40px 40px"
+                );
+            if (xNum==2&&yNum==13) // N2 CP2
+                space.setStyle("-fx-background-image: url(CP2.jpg)" +
+                        "; -fx-background-position: 0% 0%" +
+                        "; -fx-background-size: 40px 40px"
+                );
+            if (xNum==3&&yNum==13) // N3 CP3
+                space.setStyle("-fx-background-image: url(CP3.jpg)" +
+                        "; -fx-background-position: 0% 0%" +
+                        "; -fx-background-size: 40px 40px"
+                );
+            if (xNum==4&&yNum==13) // N4 CP4
+                space.setStyle("-fx-background-image: url(CP4.jpg)" +
+                        "; -fx-background-position: 0% 0%" +
+                        "; -fx-background-size: 40px 40px"
+                );
+            if (xNum==5&&yNum==13) // N5 CP5
+                space.setStyle("-fx-background-image: url(CP5.jpg)" +
+                        "; -fx-background-position: 0% 0%" +
+                        "; -fx-background-size: 40px 40px"
+                );
+            if (xNum==6&&yNum==13) // N6 CP6
+                space.setStyle("-fx-background-image: url(CP6.jpg)" +
+                        "; -fx-background-position: 0% 0%" +
+                        "; -fx-background-size: 40px 40px"
+                );
+
+
+
+            // ------------ CHECKPOINTS END ------------ //
+
         } catch (Exception e) {
             if ((space.space.x + space.space.y) % 2 == 0) { // BASIC
                 space.setStyle("-fx-background-color: white;");
