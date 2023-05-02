@@ -174,6 +174,9 @@ public class GameController {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);
                         board.setCurrentPlayer(board.getPlayer(0));
+//                        for (int i = 0; i < Value.amountOfPlayers; i++) {
+//                            ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
+//                        }
                     } else {
                         for (int i = 0; i < Value.amountOfPlayers; i++) {
                             ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
