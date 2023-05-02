@@ -8,7 +8,7 @@ public class GoldStripe extends TileCreator {
 
     public GoldStripe(@NotNull Space space) { super(space); }
 
-//    This class makes the first map "GoldStripe"
+//    This class makes the first map "GoldStripe".
     public static final String[][] GoldStripeArray = {
 //        0     1     2     3     4     5     6     7     8     9     10    11
 
