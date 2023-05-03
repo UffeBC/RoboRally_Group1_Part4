@@ -211,5 +211,10 @@ public class Board extends Subject {
                 ", Step: " + getStep();
     }
 
+  //  public List<Heading> getWalls() {
+ //       return walls;
+ //   }
+
+    public List<Player> getPlayers() {return players;}
 
 }
