@@ -133,4 +133,8 @@ public class Player extends Subject {
         return cards[i];
     }
 
+    public CommandCardField[] getCards() {return cards;}
+
+    public CommandCardField[] getProgram () {return program;}
+
 }

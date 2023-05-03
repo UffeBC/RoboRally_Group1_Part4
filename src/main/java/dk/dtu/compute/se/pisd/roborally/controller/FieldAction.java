@@ -23,6 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
@@ -42,7 +43,8 @@ public abstract class FieldAction {
      * @return whether the action was successfully executed
      */
     public abstract boolean doAction(GameController gameController, Space space);
- //   public abstract boolean doAction(GameController gameController, Board board);
+    public abstract boolean doAction(GameController gameController, Board board);
+    public abstract boolean doAction(GameController gameController, Player player);
 
 }
 

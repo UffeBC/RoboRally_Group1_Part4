@@ -27,9 +27,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 import java.io.*;
@@ -125,10 +127,37 @@ public class LoadBoard {
                     spaceTemplate.actions.addAll(space.getActions());
                     spaceTemplate.walls.addAll(space.getWalls());
                     template.spaces.add(spaceTemplate);
+
 //                    System.out.println(i+j);
                 }
             }
+
         }
+        for (int i = 0; i < board.getPlayersNumber(); i++)
+        {
+            Player player=board.getPlayer(i);
+            PlayerTemplate playerTemplate=new PlayerTemplate();
+            playerTemplate.heading=player.getHeading();
+            /*
+            if (player.getCards().length > 0) {
+                for (int j = 0; j < player.getCards().length; j++) {
+                    playerTemplate.cards[j] = player.getCardField(j);
+
+                }
+            }
+
+             */
+
+
+      //      playerTemplate.cards =player.getCards();
+      //      playerTemplate.program=player.getProgramField(1);
+     //       playerTemplate.space=player.getSpace();
+            playerTemplate.name=player.getName();
+
+            template.players.add(playerTemplate);
+
+        }
+
 
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();

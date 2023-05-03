@@ -32,7 +32,10 @@ import java.io.*;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
+
 public class IOUtil {
+
+
 
     /**
      * Reads a string from some InputStream. The solution is based
@@ -42,6 +45,7 @@ public class IOUtil {
      * @param inputStream the input stream
      * @return the string of the input stream
      */
+
     public static String readString(InputStream inputStream) {
 
         ByteSource byteSource = new ByteSource() {
@@ -58,6 +62,9 @@ public class IOUtil {
         }
     }
 
+
+
+
     /**
      * Returns a string from a resource of the project. This method is implemented
      * in such a way that resource can be read when the project is deployed in
@@ -66,6 +73,7 @@ public class IOUtil {
      * @param relativeResourcePath the relative path to the resource
      * @return the string contents of the resource
      */
+
     public static String readResource(String relativeResourcePath) {
         ClassLoader classLoader = IOUtil.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(relativeResourcePath);
@@ -75,3 +83,6 @@ public class IOUtil {
     public static class Adapter<F> {
     }
 }
+
+
+
