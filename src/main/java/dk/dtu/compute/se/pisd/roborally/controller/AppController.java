@@ -155,9 +155,13 @@ public class AppController implements Observer {
             player.setSpace(board.getSpace(i % board.width, i));
         }
 
+
+
         Value.amountOfPlayers = no;
 
-        LoadBoard.loadBoard("defaultboard");
+
+
+        LoadBoard.loadBoard("TestSave");
 
         gameController.startProgrammingPhase();
 
