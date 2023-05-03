@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
@@ -42,6 +43,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.*;
 
 /**
  * ...
@@ -115,6 +117,7 @@ public class AppController implements Observer {
     public void saveGame()
     {
         // XXX needs to be implemented eventually
+        /*
         File fl = new File("Game1"); //TSR
 
         try {
@@ -125,21 +128,54 @@ public class AppController implements Observer {
             }
         } catch (IOException var3) {
         }
+
+         */
+ //       SaveGame sg=new SaveGame(gameController.board);
+
+        LoadBoard.saveBoard(gameController.board,"TestSave");
+
+
+
     }
 
     public void loadGame() {
-        // XXX needs to be implememted eventually
-        // for now, we just create a new game
-        File fl = new File("Game1"); // TSR
 
-        if (fl.canRead()) {
-            System.out.println("File opened: " + fl.getName());
-        } else {
-            System.out.println("File does not exist");
+
+        int tileLength = 15; // Length including side board is +3
+        int tileHeight = 12/*GoldStripe.getHeightOfBoard()*/;
+
+
+        Board board = new Board(tileLength,tileHeight);
+        gameController = new GameController(board);
+
+        int no = 2;
+        for (int i = 0; i < no; i++) {
+            Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
+            board.addPlayer(player);
+            player.setSpace(board.getSpace(i % board.width, i));
         }
+
+        Value.amountOfPlayers = no;
+
+        LoadBoard.loadBoard("defaultboard");
+
+        gameController.startProgrammingPhase();
+
+        roboRally.createBoardView(gameController);
+/*
         if (gameController == null) {
             newGame();
         }
+
+ */
+
+
+
+
+
+
+
+
     }
 
     /**
