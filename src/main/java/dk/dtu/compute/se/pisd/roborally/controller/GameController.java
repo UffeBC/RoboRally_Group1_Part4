@@ -178,8 +178,10 @@ public class GameController {
 //                            ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
 //                        }
                     } else {
+
                         for (int i = 0; i < Value.amountOfPlayers; i++) {
                             ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
+                            ActionHandler.exeGiveToken(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
                         }
                         startProgrammingPhase();
                     }

@@ -55,7 +55,11 @@ public class Board extends Subject {
 
     private int step = 0;
 
+    private int token = 0;
+
     private boolean stepMode;
+
+
 
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
@@ -208,13 +212,26 @@ public class Board extends Subject {
         // XXX: V2 changed the status so that it shows the phase, the player and the step
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep();
+                ", Step: " + getStep() +
+                ", Checkpoint Token:" + getToken();
     }
 
-  //  public List<Heading> getWalls() {
+    public int getToken() { return token; }
+
+    public int setToken(Player player) {
+        if(player.board == this){
+            token = getCurrentPlayer().setCheckToken() +1;
+            notifyChange();
+        }
+    return token;
+    }
+
+
+    //  public List<Heading> getWalls() {
  //       return walls;
  //   }
 
     public List<Player> getPlayers() {return players;}
+
 
 }

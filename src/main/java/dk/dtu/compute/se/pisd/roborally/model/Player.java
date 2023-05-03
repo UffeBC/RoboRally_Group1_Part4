@@ -48,6 +48,8 @@ public class Player extends Subject {
     private CommandCardField[] program;
     private CommandCardField[] cards;
 
+    private int checkToken = 0;
+
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
         this.name = name;
@@ -136,5 +138,12 @@ public class Player extends Subject {
     public CommandCardField[] getCards() {return cards;}
 
     public CommandCardField[] getProgram () {return program;}
+
+    public int getCheckToken(){return checkToken;}
+
+    public int setCheckToken(){
+        checkToken += 1;
+        return checkToken;
+    }
 
 }
