@@ -55,8 +55,6 @@ public class Board extends Subject {
 
     private int step = 0;
 
-    private int token = 0;
-
     private boolean stepMode;
 
 
@@ -213,19 +211,10 @@ public class Board extends Subject {
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
                 ", Step: " + getStep() +
-                ", Checkpoint Token:" + getToken();
+                ", Checkpoint Token: " + getToken();
     }
 
-    public int getToken() { return token; }
-
-    public int setToken(Player player) {
-        if(player.board == this){
-            token = getCurrentPlayer().setCheckToken() +1;
-            notifyChange();
-        }
-    return token;
-    }
-
+    public int getToken() {return this.getCurrentPlayer().getCheckToken();}
 
     //  public List<Heading> getWalls() {
  //       return walls;

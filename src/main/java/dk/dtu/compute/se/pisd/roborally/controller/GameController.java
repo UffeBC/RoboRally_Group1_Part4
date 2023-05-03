@@ -26,9 +26,13 @@ import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.FindSpace;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.GoldStripe;
 import dk.dtu.compute.se.pisd.roborally.model.actions.ActionHandler;
+import dk.dtu.compute.se.pisd.roborally.view.BoardView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ...
@@ -37,11 +41,13 @@ import java.util.Objects;
  *
  */
 public class GameController {
-
+    final public AppController appController;
     final public Board board;
 
-    public GameController(@NotNull Board board) {
+
+    public GameController(@NotNull Board board, @NotNull AppController appController) {
         this.board = board;
+        this.appController = appController;
     }
 
     /**
@@ -148,7 +154,15 @@ public class GameController {
         do {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
+        if(board.getPhase() == Phase.GAME_WON){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("GAME Finished");
+            alert.setContentText(board.getCurrentPlayer().getName() + " has won the game");
+            Optional<ButtonType> result = alert.showAndWait();
+            appController.stopGame();
+        }
     }
+
 
     // XXX: V2
     private void executeNextStep() {
@@ -182,6 +196,10 @@ public class GameController {
                         for (int i = 0; i < Value.amountOfPlayers; i++) {
                             ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
                             ActionHandler.exeGiveToken(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
+                            if(board.getPhase() == Phase.GAME_WON){
+                                board.setCurrentPlayer(board.getPlayer(i));
+                                return;
+                            }
                         }
                         startProgrammingPhase();
                     }

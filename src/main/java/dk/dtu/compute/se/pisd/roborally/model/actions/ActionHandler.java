@@ -1,6 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model.actions;
 
 import dk.dtu.compute.se.pisd.roborally.model.Maps.GoldStripe;
+import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
@@ -144,38 +145,21 @@ public class ActionHandler {
     }
 
     public static void exeGiveToken(String space, Player player) {
-        if (space.equals("1N"))
-            for (int i = player.getSpace().y; i < 12; i++) {
-                for (int j = player.getSpace().x; j < 15; j++) {
-                    if (space.equals("1N")) {
-                        player.setSpace(player.board.getSpace(j, i));
-                        player.setCheckToken();
-                        player.board.setToken(player);
-                    }
-                }
+        if (space.equals("1N")){
+            if(player.getCheckToken() == 0){
+                player.setCheckToken();
             }
-
-        if (space.equals("2N"))
-            for (int i = player.getSpace().y; i < 12; i++) {
-                for (int j = player.getSpace().x; j < 15; j++) {
-                    if (space.equals("2N")) {
-                        player.setSpace(player.board.getSpace(j, i));
-                        player.setCheckToken();
-                        player.board.setToken(player);
-                    }
-                }
+        }
+        else if (space.equals("2N")){
+            if(player.getCheckToken() == 1 ){
+                player.setCheckToken();
             }
-
-        if (space.equals("3N"))
-            for (int i = player.getSpace().y; i < 12; i++) {
-                for (int j = player.getSpace().x; j < 15; j++) {
-                    if (space.equals("3N")) {
-                        player.setSpace(player.board.getSpace(j, i));
-                        player.setCheckToken();
-                        player.board.setToken(player);
-                        break;
-                    }
-                }
+        }
+        else if (space.equals("3N")){
+            if(player.getCheckToken() == 3 ){
+                player.setCheckToken();
+                player.board.setPhase(Phase.GAME_WON);
             }
+        }
     }
 }
