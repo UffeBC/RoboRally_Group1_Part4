@@ -22,7 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
@@ -38,6 +42,8 @@ public class Player extends Subject {
     final public static int NO_CARDS = 8;
 
     final public Board board;
+
+    private List<FieldAction> actions = new ArrayList<>();
 
     private String name;
     private String color;
@@ -144,6 +150,10 @@ public class Player extends Subject {
     public int setCheckToken(){
         checkToken += 1;
         return checkToken;
+    }
+
+    public List<FieldAction> getActions() {
+        return actions;
     }
 
 }

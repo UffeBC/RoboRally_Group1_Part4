@@ -120,7 +120,8 @@ public class LoadBoard {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);
 
-                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty()) {
+                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty())
+                {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
@@ -138,20 +139,26 @@ public class LoadBoard {
             Player player=board.getPlayer(i);
             PlayerTemplate playerTemplate=new PlayerTemplate();
             playerTemplate.heading=player.getHeading();
-            /*
-            if (player.getCards().length > 0) {
-                for (int j = 0; j < player.getCards().length; j++) {
-                    playerTemplate.cards[j] = player.getCardField(j);
+/*
+            if (player.getCards().length > 0)
+            {
+                for (int j = 0; j < player.getCards().length; j++)
+                {
+                    if (player.getCardField(j) != null)
+                        playerTemplate.cards[j] = player.getCardField(j);
 
                 }
             }
 
-             */
+ */
 
 
-      //      playerTemplate.cards =player.getCards();
-      //      playerTemplate.program=player.getProgramField(1);
-     //       playerTemplate.space=player.getSpace();
+
+
+ //           playerTemplate.cards =player.getCards();
+ //           playerTemplate.program=player.getProgramField(1);
+ //           playerTemplate.space=player.getSpace();
+//            System.out.println(player.getSpace());
             playerTemplate.name=player.getName();
 
             template.players.add(playerTemplate);

@@ -13,7 +13,7 @@ public class PlayerTemplate {
     public String name;
     public String color;
 
-    public CommandCardField[] program;
+    public CommandCardField program;
     public CommandCardField[] cards;
 
 
