@@ -32,20 +32,13 @@ public class ActionHandler {
 //        }
 
 
-        if ((space.equals("0B")&&push==0)||(space.equals("0A")&&push==1)||(space.equals("0B")&&push==2)||
-                (space.equals("0A")&&push==3)|| (space.equals("0B")&&push==4))
+        if ((space.equals("0B")&&push%2==0)||(space.equals("0A")&&push%2!=0))
             player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
-
-        if ((space.equals("1B")&&push==0)||(space.equals("1A")&&push==1)||(space.equals("1B")&&push==2)||
-                (space.equals("1A")&&push==3)|| (space.equals("1B")&&push==4))
+        if ((space.equals("1B")&&push%2==0)||(space.equals("1A")&&push%2!=0))
             player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
-
-        if ((space.equals("2B")&&push==0)||(space.equals("2A")&&push==1)||(space.equals("2B")&&push==2)||
-                (space.equals("2A")&&push==3)|| (space.equals("2B")&&push==4))
+        if ((space.equals("2B")&&push%2==0)||(space.equals("2A")&&push%2!=0))
             player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
-
-        if ((space.equals("3B")&&push==0)||(space.equals("3A")&&push==1)||(space.equals("3B")&&push==2)||
-                (space.equals("3A")&&push==3)|| (space.equals("3B")&&push==4))
+        if ((space.equals("3B")&&push%2==0)||(space.equals("3A")&&push%2!=0))
             player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
 
     }
