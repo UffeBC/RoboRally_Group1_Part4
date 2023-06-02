@@ -11,87 +11,82 @@ public class ActionHandler {
         CONVEYOR, REPAIR, REBOOT, WALL, LASER, PIT
     }
 
+    public static void exePushPanel(String space, Player player) {
+        //White 3-4
+        if (space.equals("0A"))
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
+        if (space.equals("1A"))
+            player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
+        if (space.equals("2A"))
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
+        if (space.equals("3A"))
+            player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
+
+        //Grey 1-2-3
+        if (space.equals("0B"))
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
+        if (space.equals("1B"))
+            player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
+        if (space.equals("2B"))
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
+        if (space.equals("3B"))
+            player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
+    }
+
     public static void exeConveyer(String space, Player player) {
-        //---------------BLUES----------------------
-        // Blue Corners
+        // CORNERS
+        for (int j = 0; j < 4; j++) {
+            if (space.equals("0"+(char)(67+j))||space.equals("1"+(char)(67+j)))
+                player.setHeading(player.getHeading().prev()); //turn left
+            if (space.equals("2"+(char)(67+j))||space.equals("3"+(char)(67+j)))
+                player.setHeading(player.getHeading().next()); //turn right
+        }
+        if (space.equals("0C")||space.equals("3C")||space.equals("0E")||space.equals("3E")) {
+            player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y+1));// down
+        }
+        if (space.equals("1D")||space.equals("2D")||space.equals("1F")||space.equals("2F")) {
+            player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y-1));// up
+        }
+        if (space.equals("0D")||space.equals("2C")||space.equals("0F")||space.equals("2E")) {
+            player.setSpace(player.board.getSpace(player.getSpace().x+1, player.getSpace().y));// right
+        }
+        if (space.equals("1C")||space.equals("3D")||space.equals("1E")||space.equals("3F")) {
+            player.setSpace(player.board.getSpace(player.getSpace().x-1, player.getSpace().y));// left
+        }
 
-        if (space.equals("0C")) player.setHeading(player.getHeading().prev());
-        if (space.equals("1C")) player.setHeading(player.getHeading().prev());
-        if (space.equals("2C")) player.setHeading(player.getHeading().next());
-        if (space.equals("3C")) player.setHeading(player.getHeading().next());
+//        int colorSpeed = 0;
+//        for (int i = 0; i < 4; i++) {
+//
+//        }
+        // BLUE Junk
+        if (space.equals("4B")||space.equals("0J")||space.equals("3K")||space.equals("4J")) {
+            player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y-2)); // up
+        }
+        if (space.equals("4C")||space.equals("1K")||space.equals("2J")||space.equals("5K")){
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+2)); // down
+        }
+        if (space.equals("5B")||space.equals("0K")||space.equals("1J")||space.equals("5J")){
+            player.setSpace(player.board.getSpace(player.getSpace().x+2,player.getSpace().y)); // right
+        }
+        if (space.equals("5C")||space.equals("2K")||space.equals("3J")||space.equals("4K")){
+            player.setSpace(player.board.getSpace(player.getSpace().x-2,player.getSpace().y)); // left
+        }
 
-        if (space.equals("0D")) player.setHeading(player.getHeading().prev());
-        if (space.equals("1D")) player.setHeading(player.getHeading().prev());
-        if (space.equals("2D")) player.setHeading(player.getHeading().next());
-        if (space.equals("3D")) player.setHeading(player.getHeading().next());
-
-        // Blue Straights
-
-        if (space.equals("4B")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 2));
-        if (space.equals("5B")) player.setSpace(player.board.getSpace(player.getSpace().x + 2, player.getSpace().y));
-        if (space.equals("4C")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 2));
-        if (space.equals("5C")) player.setSpace(player.board.getSpace(player.getSpace().x - 2, player.getSpace().y));
-
-        // Blue Junctions
-
-
-        if (space.equals("0J")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("1J")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("2J")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("3J")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("4J")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("5J")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-
-        if (space.equals("0K")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("1K")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("2K")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("3K")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("4K")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("5K")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-
-        //-------------YELLOWS---------------------
-        // Yellow Corners
-
-        if (space.equals("0E")) player.setHeading(player.getHeading().prev());
-        if (space.equals("0E")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("1E")) player.setHeading(player.getHeading().prev());
-        if (space.equals("1E")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("2E")) player.setHeading(player.getHeading().next());
-        if (space.equals("2E")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("3E")) player.setHeading(player.getHeading().next());
-        if (space.equals("3E")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-
-        if (space.equals("0F")) player.setHeading(player.getHeading().prev());
-        if (space.equals("0F")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("1F")) player.setHeading(player.getHeading().prev());
-        if (space.equals("1F")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("2F")) player.setHeading(player.getHeading().next());
-        if (space.equals("2F")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("3F")) player.setHeading(player.getHeading().next());
-        if (space.equals("3F")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        // Yellow Straights
-
-        if (space.equals("0G")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("1G")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("2G")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("3G")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
+        // Yellow Junk
+        if (space.equals("0G")||space.equals("0H")||space.equals("0I")||space.equals("4I")) {
+            player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y-1)); // up
+        }
+        if (space.equals("1G")||space.equals("2H")||space.equals("2I")||space.equals("5H")){
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); // down
+        }
+        if (space.equals("3G")||space.equals("1H")||space.equals("1I")||space.equals("4H")){
+            player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); // right
+        }
+        if (space.equals("2G")||space.equals("3H")||space.equals("3I")||space.equals("5I")){
+            player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); // left
+        }
 
 
-        // Yellow Junctions
-
-        if (space.equals("0H")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("1H")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("2H")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("3H")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("4H")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("5H")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-
-        if (space.equals("0I")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("1I")) player.setSpace(player.board.getSpace(player.getSpace().x + 1, player.getSpace().y));
-        if (space.equals("2I")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y + 1));
-        if (space.equals("3I")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
-        if (space.equals("4I")) player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y - 1));
-        if (space.equals("5I")) player.setSpace(player.board.getSpace(player.getSpace().x - 1, player.getSpace().y));
 
         // pit
         if (space.equals("5A"))
@@ -123,7 +118,10 @@ public class ActionHandler {
     public static void exeAction(String space, Player player) {
 //        System.out.println(space);
         exeConveyer(space, player);
+    }
 
+    public static void pushPanel(String space, Player player){
+        exePushPanel(space, player);
     }
 
     public static void exeGiveToken(String space, Player player) {

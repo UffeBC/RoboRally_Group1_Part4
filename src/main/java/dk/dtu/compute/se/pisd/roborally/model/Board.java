@@ -211,7 +211,8 @@ public class Board extends Subject {
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
                 ", Step: " + getStep() +
-                ", Checkpoint Token: " + getToken();
+                ", Checkpoint Token: " + getToken() +
+                ", Version 1.0";
     }
 
     public int getToken() {return this.getCurrentPlayer().getCheckToken();}

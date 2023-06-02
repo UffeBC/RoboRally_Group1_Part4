@@ -28,6 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Maps.GoldStripe;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.RingOfDeath;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.StartBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.WhirlWind;
+import dk.dtu.compute.se.pisd.roborally.model.Maps.Testing;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.scene.canvas.Canvas;
@@ -78,8 +79,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             WhirlWind.executeWhirlWind(this, space);
         else if (Objects.equals(Value.map, "RingOfDeath"))
             RingOfDeath.executeRingOfDeath(this, space);
-//        else if (Objects.equals(Value.map, "Testing"))
-//            TestingMap.executeTestMap(this, space);
+        else if (Objects.equals(Value.map, "Testing"))
+            Testing.executeTesting(this, space);
         else GoldStripe.executeGoldStripe(this,space);
 
         // updatePlayer();
