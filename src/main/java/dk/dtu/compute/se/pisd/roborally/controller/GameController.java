@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -180,10 +181,14 @@ public class GameController {
                 try {if (card.command == Command.OPTION_LEFT_RIGHT) nextPlayerNumber-=1;}
                 catch (Exception ignored) {}
                 //
+                //
+                ActionHandler.exePushPanel(FindSpace.ofPlayer(board.getCurrentPlayer()), currentPlayer, step);
+                //
                 if (nextPlayerNumber < board.getPlayersNumber()) {
                     board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                 } else {
                     step++;
+
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);

@@ -6,31 +6,53 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 public class ActionHandler {
+    public static void exePushPanel(String space, Player player, int push) {
+        //White 2-4
+//        if (push==1 || push==3){
+//            if (space.equals("0A"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
+//            if (space.equals("1A"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
+//            if (space.equals("2A"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
+//            if (space.equals("3A"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
+//        }
+//
+//        if (push==0||push==2||push==4){
+//            //Grey 1-3-5
+//            if (space.equals("0B"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
+//            if (space.equals("1B"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
+//            if (space.equals("2B"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
+//            if (space.equals("3B"))
+//                player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
+//        }
+
+
+        if ((space.equals("0B")&&push==0)||(space.equals("0A")&&push==1)||(space.equals("0B")&&push==2)||
+                (space.equals("0A")&&push==3)|| (space.equals("0B")&&push==4))
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
+
+        if ((space.equals("1B")&&push==0)||(space.equals("1A")&&push==1)||(space.equals("1B")&&push==2)||
+                (space.equals("1A")&&push==3)|| (space.equals("1B")&&push==4))
+            player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
+
+        if ((space.equals("2B")&&push==0)||(space.equals("2A")&&push==1)||(space.equals("2B")&&push==2)||
+                (space.equals("2A")&&push==3)|| (space.equals("2B")&&push==4))
+            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
+
+        if ((space.equals("3B")&&push==0)||(space.equals("3A")&&push==1)||(space.equals("3B")&&push==2)||
+                (space.equals("3A")&&push==3)|| (space.equals("3B")&&push==4))
+            player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
+
+    }
 
     public enum actions {
         CONVEYOR, REPAIR, REBOOT, WALL, LASER, PIT
-    }
 
-    public static void exePushPanel(String space, Player player) {
-        //White 3-4
-        if (space.equals("0A"))
-            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
-        if (space.equals("1A"))
-            player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
-        if (space.equals("2A"))
-            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
-        if (space.equals("3A"))
-            player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
-
-        //Grey 1-2-3
-        if (space.equals("0B"))
-            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
-        if (space.equals("1B"))
-            player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
-        if (space.equals("2B"))
-            player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
-        if (space.equals("3B"))
-            player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
     }
 
     public static void exeConveyer(String space, Player player) {
@@ -41,23 +63,7 @@ public class ActionHandler {
             if (space.equals("2"+(char)(67+j))||space.equals("3"+(char)(67+j)))
                 player.setHeading(player.getHeading().next()); //turn right
         }
-        if (space.equals("0C")||space.equals("3C")||space.equals("0E")||space.equals("3E")) {
-            player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y+1));// down
-        }
-        if (space.equals("1D")||space.equals("2D")||space.equals("1F")||space.equals("2F")) {
-            player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y-1));// up
-        }
-        if (space.equals("0D")||space.equals("2C")||space.equals("0F")||space.equals("2E")) {
-            player.setSpace(player.board.getSpace(player.getSpace().x+1, player.getSpace().y));// right
-        }
-        if (space.equals("1C")||space.equals("3D")||space.equals("1E")||space.equals("3F")) {
-            player.setSpace(player.board.getSpace(player.getSpace().x-1, player.getSpace().y));// left
-        }
 
-//        int colorSpeed = 0;
-//        for (int i = 0; i < 4; i++) {
-//
-//        }
         // BLUE Junk
         if (space.equals("4B")||space.equals("0J")||space.equals("3K")||space.equals("4J")) {
             player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y-2)); // up
@@ -73,16 +79,20 @@ public class ActionHandler {
         }
 
         // Yellow Junk
-        if (space.equals("0G")||space.equals("0H")||space.equals("0I")||space.equals("4I")) {
+        if (space.equals("0G")||space.equals("0H")||space.equals("0I")||space.equals("4I")||
+                space.equals("1D")||space.equals("2D")||space.equals("1F")||space.equals("2F")) {
             player.setSpace(player.board.getSpace(player.getSpace().x, player.getSpace().y-1)); // up
         }
-        if (space.equals("1G")||space.equals("2H")||space.equals("2I")||space.equals("5H")){
+        if (space.equals("1G")||space.equals("2H")||space.equals("2I")||space.equals("5H")||
+                space.equals("0C")||space.equals("3C")||space.equals("0E")||space.equals("3E")){
             player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); // down
         }
-        if (space.equals("3G")||space.equals("1H")||space.equals("1I")||space.equals("4H")){
+        if (space.equals("3G")||space.equals("1H")||space.equals("1I")||space.equals("4H")||
+                space.equals("0D")||space.equals("2C")||space.equals("0F")||space.equals("2E")){
             player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); // right
         }
-        if (space.equals("2G")||space.equals("3H")||space.equals("3I")||space.equals("5I")){
+        if (space.equals("2G")||space.equals("3H")||space.equals("3I")||space.equals("5I")||
+                space.equals("1C")||space.equals("3D")||space.equals("1E")||space.equals("3F")){
             player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); // left
         }
 
@@ -120,8 +130,8 @@ public class ActionHandler {
         exeConveyer(space, player);
     }
 
-    public static void pushPanel(String space, Player player){
-        exePushPanel(space, player);
+    public static void pushPanel(String space, Player player, int push){
+        exePushPanel(space, player, push);
     }
 
     public static void exeGiveToken(String space, Player player) {
