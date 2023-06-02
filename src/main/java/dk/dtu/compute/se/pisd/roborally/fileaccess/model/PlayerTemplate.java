@@ -1,5 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
 
+import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -14,7 +15,11 @@ public class PlayerTemplate {
     public String color;
 
     public CommandCardField[] program;
-    public CommandCardField[] cards;
+    //public CommandCardField[] cards;
+
+    public CommandCard[] cards;
+    //public String[] cardStringArr;
+
 
 
     public Space space;

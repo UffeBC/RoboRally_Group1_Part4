@@ -146,7 +146,10 @@ public class LoadBoard {
 
   //          playerTemplate.cards = player.getCards();
 
-            playerTemplate.cards  = new CommandCardField[player.getCards().length];
+            //playerTemplate.cards  = new CommandCardField[player.getCards().length];
+
+            playerTemplate.cards = new CommandCard[player.getCards().length];
+
             System.out.println(player.getCards().length);
 
             if (player.getCards().length > 0)
@@ -154,8 +157,11 @@ public class LoadBoard {
                 for (int j = 0; j < player.getCards().length; j++)
                 {
                     if (player.getCardField(j) != null) {
-//                        playerTemplate.cards[j]=player.getCardField(j);
-                        System.out.println(playerTemplate.cards[j]+ " "+player.getCardField(j));
+                        //playerTemplate.cards[j]=player.getCardField(j);
+                        playerTemplate.cards[j]=player.getCardField(j).getCard();
+                        //playerTemplate.cardStringArr[j]=player.getCardField(j).getCard().getName();
+//  *                      System.out.println(playerTemplate.cards[j]+ " "+player.getCardField(j));
+                        System.out.println(playerTemplate.cards[j].getName()+ " "+player.getCardField(j).getCard().getName());
                     }
 
                 }
