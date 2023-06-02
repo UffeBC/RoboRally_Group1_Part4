@@ -52,7 +52,7 @@ public class Player extends Subject {
     private Heading heading = SOUTH;
 
     private CommandCardField[] program;
-    private CommandCardField[] cards;
+    public CommandCardField[] cards;
 
     private int checkToken = 0;
 

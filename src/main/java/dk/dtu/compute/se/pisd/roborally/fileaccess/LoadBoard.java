@@ -30,9 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -107,6 +105,7 @@ public class LoadBoard {
                 } catch (IOException e2) {}
             }
         }
+
         return null;
     }
 
@@ -130,7 +129,7 @@ public class LoadBoard {
                     template.spaces.add(spaceTemplate);
 
 //                    System.out.println(i+j);
-                }
+               }
             }
 
         }
@@ -139,18 +138,36 @@ public class LoadBoard {
             Player player=board.getPlayer(i);
             PlayerTemplate playerTemplate=new PlayerTemplate();
             playerTemplate.heading=player.getHeading();
-/*
+            playerTemplate.x=player.getSpace().x;
+            playerTemplate.x=player.getSpace().y;
+
+      //      System.out.println(player.getCards().length);
+  //          playerTemplate.cards[8];
+
+  //          playerTemplate.cards = player.getCards();
+
+            playerTemplate.cards  = new CommandCardField[player.getCards().length];
+            System.out.println(player.getCards().length);
+
             if (player.getCards().length > 0)
             {
                 for (int j = 0; j < player.getCards().length; j++)
                 {
-                    if (player.getCardField(j) != null)
-                        playerTemplate.cards[j] = player.getCardField(j);
+                    if (player.getCardField(j) != null) {
+//                        playerTemplate.cards[j]=player.getCardField(j);
+                        System.out.println(playerTemplate.cards[j]+ " "+player.getCardField(j));
+                    }
 
                 }
             }
 
- */
+
+
+
+
+
+
+
 
 
 
