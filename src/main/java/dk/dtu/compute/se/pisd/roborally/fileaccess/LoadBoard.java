@@ -44,7 +44,8 @@ import java.nio.file.Paths;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-public class LoadBoard {
+public class LoadBoard
+{
 
 //    private static final String BOARDSFOLDER = "src/main/resources/boards";
     private static final String BOARDSFOLDER = "boards";
@@ -102,10 +103,14 @@ public class LoadBoard {
                 result.addPlayer(player);
                 player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
                 player.setHeading(playerTemplate.heading);
- //               for (playerTemplate.cards:playerTemplate.cards.length)
- //               {
+                /*
+                for (int j=0; j < playerTemplate.cards.length; j++)
+                {
+                    player.getCardField(j).setCard(playerTemplate.cards[j]);
 
- //               }
+                }
+
+                 */
 
             }
             reader.close();
@@ -125,6 +130,88 @@ public class LoadBoard {
         }
 
         return null;
+    }
+
+    public static void loadCardAndProg(Board board, String boardname, Player player)
+    {
+        if (boardname == null) {
+            boardname = DEFAULTBOARD;
+        }
+
+        System.out.println("loadCardAndProg");
+
+
+        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+        if (inputStream == null) {
+            // TODO these constants should be defined somewhere
+ //           return new Board(8,8);
+        }
+
+        // In simple cases, we can create a Gson object with new Gson():
+        GsonBuilder simpleBuilder = new GsonBuilder().
+                registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
+        Gson gson = simpleBuilder.create();
+
+//        Board result;
+//        FileReader fileReader = null;
+        JsonReader reader = null;
+        try {
+            System.out.println("Load");
+//            fileReader = new FileReader(filename);
+            reader = gson.newJsonReader(new InputStreamReader(inputStream));
+//            reader = gson.newJsonReader(new InputStreamReader(fileReader));
+            BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
+/*
+            result = new Board(template.width, template.height);
+            for (SpaceTemplate spaceTemplate: template.spaces) {
+                Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
+                System.out.println("x: "+space.x+" y: "+space.y);
+                if (space != null) {
+                    space.getActions().addAll(spaceTemplate.actions);
+                    space.getWalls().addAll(spaceTemplate.walls);
+                }
+            }
+
+ */
+            for (PlayerTemplate playerTemplate: template.players)
+            {
+//                Player player=result.getPlayer(playerTemplate.number);
+//
+//                Player player=new Player(result,playerTemplate.color,playerTemplate.name);
+                System.out.println(player.getName());
+//                result.addPlayer(player);
+//                player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
+//                player.setHeading(playerTemplate.heading);
+                if (playerTemplate.name.equals(player.getName())) {
+                    for (int j = 0; j < playerTemplate.cards.length; j++) {
+                        player.getCardField(j).setCard(playerTemplate.cards[j]);
+
+                    }
+                    for (int j = 0; j < playerTemplate.program.length; j++) {
+                        player.getProgramField(j).setCard(playerTemplate.program[j]);
+
+                    }
+                }
+
+            }
+            reader.close();
+ //           return result;
+        } catch (IOException e1) {
+            if (reader != null) {
+                try {
+                    reader.close();
+                    inputStream = null;
+                } catch (IOException e2) {}
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e2) {}
+            }
+        }
+
+     //   return null;
     }
 
     public static void saveBoard(Board board, String name) {
