@@ -14,7 +14,9 @@ public class PlayerTemplate {
     public String name;
     public String color;
 
-    public CommandCardField[] program;
+
+    public int number;
+    public CommandCard[] program;
     //public CommandCardField[] cards;
 
     public CommandCard[] cards;
