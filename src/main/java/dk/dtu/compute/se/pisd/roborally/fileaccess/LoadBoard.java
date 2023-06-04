@@ -29,8 +29,14 @@ import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
+
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.ValueTemplate;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.Core.*;
+
+
+
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -47,10 +53,9 @@ import java.nio.file.Paths;
 public class LoadBoard
 {
 
-//    private static final String BOARDSFOLDER = "src/main/resources/boards";
+
     private static final String BOARDSFOLDER = "boards";
-//    private static final String BOARDSFOLDER = "/C:/Users/tsr_0/IdeaProjects/RoboRally_Group1_Part4/target/classes/boards";
-//    private static final String BOARDSFOLDER = "main";
+
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
@@ -80,9 +85,9 @@ public class LoadBoard
         JsonReader reader = null;
         try {
             System.out.println("Load");
-//            fileReader = new FileReader(filename);
+
             reader = gson.newJsonReader(new InputStreamReader(inputStream));
-//            reader = gson.newJsonReader(new InputStreamReader(fileReader));
+
             BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
             result = new Board(template.width, template.height);
@@ -96,23 +101,22 @@ public class LoadBoard
             }
             for (PlayerTemplate playerTemplate: template.players)
             {
-//                Player player=result.getPlayer(playerTemplate.number);
-//
+
                 Player player=new Player(result,playerTemplate.color,playerTemplate.name);
                 System.out.println(player.getName());
                 result.addPlayer(player);
                 player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
                 player.setHeading(playerTemplate.heading);
-                /*
-                for (int j=0; j < playerTemplate.cards.length; j++)
-                {
-                    player.getCardField(j).setCard(playerTemplate.cards[j]);
-
-                }
-
-                 */
 
             }
+
+            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
+            Value.map=valueTemplate.map;
+            Value.amountOfPlayers=valueTemplate.amountOfPlayers;
+            Value.MovePlayer= valueTemplate.MovePlayer;
+            Value.selectedPLayer=valueTemplate.selectedPLayer;
+            Value.clickCounter= valueTemplate.clickCounter;
+
             reader.close();
             return result;
         } catch (IOException e1) {
@@ -153,36 +157,20 @@ public class LoadBoard
                 registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
         Gson gson = simpleBuilder.create();
 
-//        Board result;
-//        FileReader fileReader = null;
+
         JsonReader reader = null;
         try {
             System.out.println("Load");
-//            fileReader = new FileReader(filename);
-            reader = gson.newJsonReader(new InputStreamReader(inputStream));
-//            reader = gson.newJsonReader(new InputStreamReader(fileReader));
-            BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
-/*
-            result = new Board(template.width, template.height);
-            for (SpaceTemplate spaceTemplate: template.spaces) {
-                Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
-                System.out.println("x: "+space.x+" y: "+space.y);
-                if (space != null) {
-                    space.getActions().addAll(spaceTemplate.actions);
-                    space.getWalls().addAll(spaceTemplate.walls);
-                }
-            }
 
- */
+            reader = gson.newJsonReader(new InputStreamReader(inputStream));
+
+            BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
+
             for (PlayerTemplate playerTemplate: template.players)
             {
-//                Player player=result.getPlayer(playerTemplate.number);
-//
-//                Player player=new Player(result,playerTemplate.color,playerTemplate.name);
+
                 System.out.println(player.getName());
-//                result.addPlayer(player);
-//                player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
-//                player.setHeading(playerTemplate.heading);
+
                 if (playerTemplate.name.equals(player.getName())) {
                     for (int j = 0; j < playerTemplate.cards.length; j++) {
                         player.getCardField(j).setCard(playerTemplate.cards[j]);
@@ -218,6 +206,9 @@ public class LoadBoard
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
         template.height = board.height;
+
+
+
 
         System.out.println(name);
         for (int i=0; i<board.width; i++) {
@@ -291,7 +282,19 @@ public class LoadBoard
 
             template.players.add(playerTemplate);
 
+
+
         }
+
+
+        ValueTemplate valueTemplate=new ValueTemplate();
+
+        valueTemplate.map=Value.map;
+        valueTemplate.amountOfPlayers= Value.amountOfPlayers;
+        valueTemplate.clickCounter=Value.clickCounter;
+        valueTemplate.MovePlayer=Value.MovePlayer;
+        valueTemplate.selectedPLayer=Value.selectedPLayer;
+
 
 
 
@@ -324,7 +327,7 @@ public class LoadBoard
             writer = gson.newJsonWriter(fileWriter);
 
             gson.toJson(template, template.getClass(), writer);
- //           gson.toJson(template, template.getClass(), writer);
+            gson.toJson(valueTemplate, valueTemplate.getClass(), writer);
             writer.close();
         } catch (IOException e1) {
             if (writer != null) {
@@ -339,6 +342,8 @@ public class LoadBoard
                 } catch (IOException e2) {}
             }
         }
+
+
     }
 
 }

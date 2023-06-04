@@ -13,4 +13,23 @@ public class Value {
 
 
     public static int clickCounter = 0;
+
+    public int getAmountOfPlayers()
+    {
+        return amountOfPlayers;
+    }
+    public String getMap()
+    {
+        return map;
+    }
+
+    public boolean getMovePlayer()
+    {
+        return MovePlayer;
+    }
+
+    public Player getSelectedPLayer()
+    {
+        return selectedPLayer;
+    }
 }
