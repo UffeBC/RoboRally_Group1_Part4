@@ -43,8 +43,6 @@ public abstract class FieldAction {
      * @return whether the action was successfully executed
      */
     public abstract boolean doAction(GameController gameController, Space space);
-    public abstract boolean doAction(GameController gameController, Board board);
-    public abstract boolean doAction(GameController gameController, Player player);
 
 }
 

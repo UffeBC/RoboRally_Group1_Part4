@@ -9,8 +9,27 @@ public class Value {
 
     // USED IN BOARD_VIEW
     public static boolean MovePlayer;
-    public static Player selectedPLayer;
+    public static int selectedPLayer;
 
 
     public static int clickCounter = 0;
+
+    public int getAmountOfPlayers()
+    {
+        return amountOfPlayers;
+    }
+    public String getMap()
+    {
+        return map;
+    }
+
+    public boolean getMovePlayer()
+    {
+        return MovePlayer;
+    }
+
+    public int getSelectedPLayer()
+    {
+        return selectedPLayer;
+    }
 }
