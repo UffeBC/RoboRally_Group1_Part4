@@ -9,7 +9,7 @@ public class Value {
 
     // USED IN BOARD_VIEW
     public static boolean MovePlayer;
-    public static Player selectedPLayer;
+    public static int selectedPLayer;
 
 
     public static int clickCounter = 0;
@@ -28,7 +28,7 @@ public class Value {
         return MovePlayer;
     }
 
-    public Player getSelectedPLayer()
+    public int getSelectedPLayer()
     {
         return selectedPLayer;
     }

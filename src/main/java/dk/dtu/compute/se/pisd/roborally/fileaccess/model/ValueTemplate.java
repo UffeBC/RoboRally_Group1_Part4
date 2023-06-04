@@ -10,7 +10,7 @@ public class ValueTemplate
 
     // USED IN BOARD_VIEW
     public boolean MovePlayer;
-    public Player selectedPLayer;
+    public int selectedPLayer;
 
 
     public int clickCounter;

@@ -117,6 +117,8 @@ public class LoadBoard
             Value.selectedPLayer=valueTemplate.selectedPLayer;
             Value.clickCounter= valueTemplate.clickCounter;
 
+            result.setCurrentPlayer(result.getPlayer(valueTemplate.selectedPLayer));
+
             reader.close();
             return result;
         } catch (IOException e1) {
@@ -293,7 +295,7 @@ public class LoadBoard
         valueTemplate.amountOfPlayers= Value.amountOfPlayers;
         valueTemplate.clickCounter=Value.clickCounter;
         valueTemplate.MovePlayer=Value.MovePlayer;
-        valueTemplate.selectedPLayer=Value.selectedPLayer;
+        valueTemplate.selectedPLayer=board.getNrOfCurrentPlayer();
 
 
 

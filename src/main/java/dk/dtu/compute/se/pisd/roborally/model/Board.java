@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -126,6 +127,7 @@ public class Board extends Subject {
     public void setCurrentPlayer(Player player) {
         if (player != this.current && players.contains(player)) {
             this.current = player;
+ //           Value.selectedPLayer=player;
             notifyChange();
         }
     }
@@ -221,6 +223,16 @@ public class Board extends Subject {
  //   }
 
     public List<Player> getPlayers() {return players;}
+
+    public int getNrOfCurrentPlayer()
+    {
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println("nrCurrentPlayer"+i);
+            if (players.get(i)== current) return i;
+
+        }
+        return -1;
+    }
 
 
 }
