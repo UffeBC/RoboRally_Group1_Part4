@@ -35,15 +35,11 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.ValueTemplate;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.*;
 
-
+import javafx.scene.control.*;
 
 
 import java.io.*;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Optional;
 
 /**
  * ...
@@ -65,11 +61,11 @@ public class LoadBoard
             boardname = DEFAULTBOARD;
         }
 
-        System.out.println("Load board");
 
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+  //      InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + flToLoad[0]);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
             return new Board(8,8);
@@ -345,6 +341,32 @@ public class LoadBoard
             }
         }
 
+
+    }
+
+    public static String jsonFile()
+    {
+        File fl = new File("target/classes/boards/");
+
+//        System.out.println("Absolute path: "+fl.getAbsolutePath());
+//        System.out.println("Files in target: "+fl.listFiles()[0]);
+        String[] filesInDir=fl.list();
+
+//        System.out.println("Load board");
+        ChoiceDialog<String> dialog = new ChoiceDialog<String>(filesInDir[1],filesInDir);
+        dialog.setTitle("Load a game");
+        dialog.setHeaderText("Select file to load");
+        Optional<String> filernr = dialog.showAndWait();
+//        System.out.println("Filenr: "+ filernr);
+
+        String[] st = filernr.toString().split("\\[");
+        String[] stJs = st[1].split("]");
+//        System.out.println("File to load: x"+ stJs[0]+"x");
+        String[] flJs=stJs[0].split("\\.");
+
+//        System.out.println(flJs[0]);
+
+        return flJs[0];
 
     }
 

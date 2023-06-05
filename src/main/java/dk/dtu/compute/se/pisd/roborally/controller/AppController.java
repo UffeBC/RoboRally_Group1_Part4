@@ -160,8 +160,10 @@ public class AppController implements Observer {
         Value.amountOfPlayers = no;
 
 */
+        String jsonFile=LoadBoard.jsonFile();
 
-      Board board= LoadBoard.loadBoard("TestSave");
+
+      Board board= LoadBoard.loadBoard(jsonFile);
 
         System.out.println("AppController 1");
         gameController = new GameController(board,this);
@@ -173,7 +175,7 @@ public class AppController implements Observer {
         System.out.println("AppController 3");
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
-            LoadBoard.loadCardAndProg(board, "TestSave", player);
+            LoadBoard.loadCardAndProg(board, jsonFile, player);
         }
 
         roboRally.createBoardView(gameController);
