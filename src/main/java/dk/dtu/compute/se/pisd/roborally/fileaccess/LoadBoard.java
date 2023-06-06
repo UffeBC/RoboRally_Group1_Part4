@@ -370,4 +370,36 @@ public class LoadBoard
 
     }
 
+    public static String jsonFileToSave() {
+        File fl = new File("target/classes/boards/");
+
+//        System.out.println("Absolute path: "+fl.getAbsolutePath());
+//        System.out.println("Files in target: "+fl.listFiles()[0]);
+        String[] filesInDir = fl.list();
+
+        for (int f = 0; f < filesInDir.length; f++) {
+            System.out.println(f+" "+ filesInDir[f]);
+
+        }
+/*
+//        System.out.println("Load board");
+        ChoiceDialog<String> dialog = new ChoiceDialog<String>(filesInDir[1], filesInDir);
+        dialog.setTitle("Load a game");
+        dialog.setHeaderText("Select file to load");
+        Optional<String> filernr = dialog.showAndWait();
+//        System.out.println("Filenr: "+ filernr);
+
+        String[] st = filernr.toString().split("\\[");
+        String[] stJs = st[1].split("]");
+//        System.out.println("File to load: x"+ stJs[0]+"x");
+        String[] flJs = stJs[0].split("\\.");
+
+//        System.out.println(flJs[0]);
+
+ */
+
+        return "flJs[0]";
+    }
+
+
 }

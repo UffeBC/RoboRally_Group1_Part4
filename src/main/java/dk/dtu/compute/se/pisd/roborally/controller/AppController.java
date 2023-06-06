@@ -132,6 +132,8 @@ public class AppController implements Observer {
          */
  //       SaveGame sg=new SaveGame(gameController.board);
 
+        String jsonFile=LoadBoard.jsonFileToSave();
+
         LoadBoard.saveBoard(gameController.board,"TestSave");
 
 
