@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.FindSpace;
@@ -141,6 +142,7 @@ public class GameController {
     // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
+        LoadBoard.saveBoard(board,"Share");
         continuePrograms();
     }
 
