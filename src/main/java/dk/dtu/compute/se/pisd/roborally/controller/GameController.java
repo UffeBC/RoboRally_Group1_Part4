@@ -162,6 +162,7 @@ public class GameController {
             Optional<ButtonType> result = alert.showAndWait();
             appController.stopGame();
         }
+
     }
 
 
@@ -178,7 +179,10 @@ public class GameController {
                 }
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
                 //
-                try {if (card.command == Command.OPTION_LEFT_RIGHT) nextPlayerNumber-=1;}
+                try {
+                    if (card.command == Command.OPTION_LEFT_RIGHT || card.command == Command.OPTION_FWD_FAST_FORWARD)
+                        nextPlayerNumber-=1;
+                }
                 catch (Exception ignored) {}
                 //
                 //
@@ -204,6 +208,7 @@ public class GameController {
                             if(board.getPhase() == Phase.GAME_WON){
                                 board.setCurrentPlayer(board.getPlayer(i));
                                 return;
+
                             }
                         }
                         startProgrammingPhase();
@@ -255,6 +260,7 @@ public class GameController {
                     this.fastForward(player);
                     break;
                 case OPTION_LEFT_RIGHT:
+                case OPTION_FWD_FAST_FORWARD:
                     this.optionCard(player);
                     break;
                 default:
@@ -276,6 +282,8 @@ public class GameController {
                 target.setPlayer(player);
             }
         }
+        if (player.board.getPhase()==Phase.PLAYER_INTERACTION){
+            executeStep();;}
     }
 
     // TODO: V2

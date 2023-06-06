@@ -31,6 +31,8 @@ public class GoldStripe extends TileCreator {
 
     public static int lengthOfBoard = 12;
     public static int heightOfBoard = 12;
+
+    public static int nrCheckPoints = 3;
     public static int getLengthOfBoard() { return lengthOfBoard; }
     public static int getHeightOfBoard() { return heightOfBoard; }
 

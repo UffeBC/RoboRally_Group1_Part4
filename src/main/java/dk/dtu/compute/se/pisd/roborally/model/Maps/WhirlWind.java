@@ -29,6 +29,8 @@ public class WhirlWind extends TileCreator {
     //     URL https://tartarus.org/gareth/roborally/images/Circuit_Maze.board.2005.png
     public static int lengthOfBoard = 12;
     public static int heightOfBoard = 12;
+
+    public static int nrCheckPoints = 5;
     public static int getLengthOfBoard() { return lengthOfBoard; }
     public static int getHeightOfBoard() { return heightOfBoard; }
 
