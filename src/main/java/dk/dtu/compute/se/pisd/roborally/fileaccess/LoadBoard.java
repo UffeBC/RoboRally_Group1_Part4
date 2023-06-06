@@ -38,6 +38,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Core.*;
 import javafx.scene.control.*;
 
 
+
 import java.io.*;
 import java.util.Optional;
 
@@ -378,27 +379,22 @@ public class LoadBoard
         String[] filesInDir = fl.list();
 
         for (int f = 0; f < filesInDir.length; f++) {
-            System.out.println(f+" "+ filesInDir[f]);
+            System.out.println(filesInDir[f]);
 
         }
-/*
+
 //        System.out.println("Load board");
-        ChoiceDialog<String> dialog = new ChoiceDialog<String>(filesInDir[1], filesInDir);
-        dialog.setTitle("Load a game");
-        dialog.setHeaderText("Select file to load");
-        Optional<String> filernr = dialog.showAndWait();
-//        System.out.println("Filenr: "+ filernr);
+        TextInputDialog dialog = new TextInputDialog("TestSave");
+        dialog.setTitle("Save to file");
+        dialog.setHeaderText("Enter file name: ");
+        dialog.showAndWait();
+        TextField s = dialog.getEditor();
 
-        String[] st = filernr.toString().split("\\[");
-        String[] stJs = st[1].split("]");
-//        System.out.println("File to load: x"+ stJs[0]+"x");
-        String[] flJs = stJs[0].split("\\.");
 
-//        System.out.println(flJs[0]);
+        System.out.println("Dialog result: "+s.getCharacters());
 
- */
 
-        return "flJs[0]";
+        return String.valueOf(s.getCharacters());
     }
 
 

@@ -134,7 +134,7 @@ public class AppController implements Observer {
 
         String jsonFile=LoadBoard.jsonFileToSave();
 
-        LoadBoard.saveBoard(gameController.board,"TestSave");
+        LoadBoard.saveBoard(gameController.board,jsonFile);
 
 
 
