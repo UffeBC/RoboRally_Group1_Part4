@@ -11,10 +11,10 @@ public class FindSpace {
         //System.out.println(Value.map);
         if (Value.map == "GoldenStripe" && x>2)
             return GoldStripe.GoldStripeArray[y][x-3];
-        else if (Value.map == " RingOfDeath" && x>2)
+        else if (Value.map == "RingOfDeath" && x>2)
             return RingOfDeath.RingOfDeath[y][x-3];
         else if (Value.map == "WhirlWind" && x>2)
-            return RingOfDeath.RingOfDeath[y][x-3];
+            return WhirlWind.WhirlWind[y][x-3];
         else if (Value.map == "Testing" && x>2)
             return  Testing.Testing[y][x-3];
         else return StartBoard.StartBoard[y][x];
