@@ -132,7 +132,9 @@ public class AppController implements Observer {
          */
  //       SaveGame sg=new SaveGame(gameController.board);
 
-        LoadBoard.saveBoard(gameController.board,"TestSave");
+        String jsonFile=LoadBoard.jsonFileToSave();
+
+        LoadBoard.saveBoard(gameController.board,jsonFile);
 
 
 
@@ -144,7 +146,7 @@ public class AppController implements Observer {
         int tileLength = 15; // Length including side board is +3
         int tileHeight = 12/*GoldStripe.getHeightOfBoard()*/;
 
-
+/*
         Board board = new Board(tileLength,tileHeight);
         gameController = new GameController(board,this);
 
@@ -159,11 +161,24 @@ public class AppController implements Observer {
 
         Value.amountOfPlayers = no;
 
+*/
+        String jsonFile=LoadBoard.jsonFile();
 
 
-        LoadBoard.loadBoard("TestSave");
+      Board board= LoadBoard.loadBoard(jsonFile);
+
+        System.out.println("AppController 1");
+        gameController = new GameController(board,this);
+
+        System.out.println("AppController 2");
 
         gameController.startProgrammingPhase();
+
+        System.out.println("AppController 3");
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Player player = board.getPlayer(i);
+            LoadBoard.loadCardAndProg(board, jsonFile, player);
+        }
 
         roboRally.createBoardView(gameController);
 /*

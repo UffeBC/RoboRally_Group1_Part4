@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.FindSpace;
@@ -31,6 +32,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -140,6 +142,7 @@ public class GameController {
     // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
+        LoadBoard.saveBoard(board,"Share");
         continuePrograms();
     }
 
@@ -180,10 +183,14 @@ public class GameController {
                 try {if (card.command == Command.OPTION_LEFT_RIGHT) nextPlayerNumber-=1;}
                 catch (Exception ignored) {}
                 //
+                //
+                ActionHandler.exePushPanel(FindSpace.ofPlayer(board.getCurrentPlayer()), currentPlayer, step);
+                //
                 if (nextPlayerNumber < board.getPlayersNumber()) {
                     board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                 } else {
                     step++;
+
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);

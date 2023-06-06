@@ -29,40 +29,44 @@ import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
+
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.ValueTemplate;
+import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.Core.*;
+
+import javafx.scene.control.*;
+
+
 
 import java.io.*;
-import java.lang.reflect.Type;
+import java.util.Optional;
 
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-public class LoadBoard {
+public class LoadBoard
+{
 
-//    private static final String BOARDSFOLDER = "src/main/resources/boards";
+
     private static final String BOARDSFOLDER = "boards";
-//    private static final String BOARDSFOLDER = "../../src/main/resources";
-//    private static final String BOARDSFOLDER = "main";
+
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
-    public static Board loadBoard(String boardname) {
+    public static Board loadBoard(String boardname)
+    {
         if (boardname == null) {
             boardname = DEFAULTBOARD;
         }
 
+
+
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
-        System.out.println(classLoader.getResource(BOARDSFOLDER).getPath() + "/" + boardname + "." + JSON_EXT);
-        String filename =
-                classLoader.getResource(BOARDSFOLDER).getPath() + "/" + boardname + "." + JSON_EXT;
-
-        InputStream inputStream = classLoader.getResourceAsStream(filename);
-
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+  //      InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + flToLoad[0]);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
             return new Board(8,8);
@@ -74,24 +78,58 @@ public class LoadBoard {
         Gson gson = simpleBuilder.create();
 
         Board result;
-        // FileReader fileReader = null;
-     //   FileReader fileReader = null;
-
+        FileReader fileReader = null;
         JsonReader reader = null;
         try {
-  //           fileReader = new FileReader(filename);
+            System.out.println("Load");
+
             reader = gson.newJsonReader(new InputStreamReader(inputStream));
-//            reader = gson.newJsonReader(new InputStreamReader(fileReader));
+
             BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
             result = new Board(template.width, template.height);
             for (SpaceTemplate spaceTemplate: template.spaces) {
                 Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
+                System.out.println("x: "+space.x+" y: "+space.y);
                 if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
                 }
             }
+            for (PlayerTemplate playerTemplate: template.players)
+            {
+
+                Player player=new Player(result,playerTemplate.color,playerTemplate.name);
+                System.out.println(player.getName());
+                result.addPlayer(player);
+                player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
+                player.setHeading(playerTemplate.heading);
+
+
+                if (playerTemplate.name.equals(player.getName())) {
+                    for (int j = 0; j < playerTemplate.cards.length; j++) {
+                        player.getCardField(j).setCard(playerTemplate.cards[j]);
+
+                    }
+                    for (int j = 0; j < playerTemplate.program.length; j++) {
+                        player.getProgramField(j).setCard(playerTemplate.program[j]);
+
+                    }
+                }
+
+
+
+            }
+
+            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
+            Value.map=valueTemplate.map;
+            Value.amountOfPlayers=valueTemplate.amountOfPlayers;
+            Value.MovePlayer= valueTemplate.MovePlayer;
+            Value.selectedPLayer=valueTemplate.selectedPLayer;
+            Value.clickCounter= valueTemplate.clickCounter;
+
+            result.setCurrentPlayer(result.getPlayer(valueTemplate.selectedPLayer));
+
             reader.close();
             return result;
         } catch (IOException e1) {
@@ -107,7 +145,74 @@ public class LoadBoard {
                 } catch (IOException e2) {}
             }
         }
+
         return null;
+    }
+
+    public static void loadCardAndProg(Board board, String boardname, Player player)
+    {
+        if (boardname == null) {
+            boardname = DEFAULTBOARD;
+        }
+
+        System.out.println("loadCardAndProg");
+
+
+        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+        if (inputStream == null) {
+            // TODO these constants should be defined somewhere
+ //           return new Board(8,8);
+        }
+
+        // In simple cases, we can create a Gson object with new Gson():
+        GsonBuilder simpleBuilder = new GsonBuilder().
+                registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
+        Gson gson = simpleBuilder.create();
+
+
+        JsonReader reader = null;
+        try {
+            System.out.println("Load");
+
+            reader = gson.newJsonReader(new InputStreamReader(inputStream));
+
+            BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
+
+            for (PlayerTemplate playerTemplate: template.players)
+            {
+
+                System.out.println(player.getName());
+
+                if (playerTemplate.name.equals(player.getName())) {
+                    for (int j = 0; j < playerTemplate.cards.length; j++) {
+                        player.getCardField(j).setCard(playerTemplate.cards[j]);
+
+                    }
+                    for (int j = 0; j < playerTemplate.program.length; j++) {
+                        player.getProgramField(j).setCard(playerTemplate.program[j]);
+
+                    }
+                }
+
+            }
+            reader.close();
+ //           return result;
+        } catch (IOException e1) {
+            if (reader != null) {
+                try {
+                    reader.close();
+                    inputStream = null;
+                } catch (IOException e2) {}
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e2) {}
+            }
+        }
+
+     //   return null;
     }
 
     public static void saveBoard(Board board, String name) {
@@ -115,12 +220,16 @@ public class LoadBoard {
         template.width = board.width;
         template.height = board.height;
 
+
+
+
         System.out.println(name);
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);
 
-                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty()) {
+                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty())
+                {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
@@ -129,34 +238,76 @@ public class LoadBoard {
                     template.spaces.add(spaceTemplate);
 
 //                    System.out.println(i+j);
-                }
+               }
             }
 
         }
+        template.numberOfPlayers=board.getPlayersNumber();
+
         for (int i = 0; i < board.getPlayersNumber(); i++)
         {
+
             Player player=board.getPlayer(i);
             PlayerTemplate playerTemplate=new PlayerTemplate();
             playerTemplate.heading=player.getHeading();
-            /*
-            if (player.getCards().length > 0) {
-                for (int j = 0; j < player.getCards().length; j++) {
-                    playerTemplate.cards[j] = player.getCardField(j);
+            playerTemplate.number=player.board.getPlayerNumber(player);
+            playerTemplate.x=player.getSpace().x;
+            playerTemplate.y=player.getSpace().y;
+
+
+            playerTemplate.cards = new CommandCard[player.getCards().length];
+
+            if (player.getCards().length > 0)
+            {
+                for (int j = 0; j < player.getCards().length; j++)
+                {
+                    if (player.getCardField(j) != null) {
+                        playerTemplate.cards[j]=player.getCardField(j).getCard();
+
+ //                       System.out.println(playerTemplate.cards[j].getName()+ " "+player.getCardField(j).getCard().getName());
+                    }
 
                 }
             }
 
-             */
+            playerTemplate.program = new CommandCard[player.getProgram().length];
+
+ //           System.out.println(player.getCards().length);
+
+            if (player.getProgram().length > 0)
+            {
+                for (int j = 0; j < player.getProgram().length; j++)
+                {
+                    if (player.getProgramField(j) != null) {
+                        playerTemplate.program[j]=player.getProgramField(j).getCard();
+
+                        //                       System.out.println(playerTemplate.cards[j].getName()+ " "+player.getCardField(j).getCard().getName());
+                    }
+
+                }
+            }
 
 
-      //      playerTemplate.cards =player.getCards();
-      //      playerTemplate.program=player.getProgramField(1);
-     //       playerTemplate.space=player.getSpace();
+ //           playerTemplate.space=player.getSpace();
+//            System.out.println(player.getSpace());
             playerTemplate.name=player.getName();
+            playerTemplate.color=player.getColor();
 
             template.players.add(playerTemplate);
 
+
+
         }
+
+
+        ValueTemplate valueTemplate=new ValueTemplate();
+
+        valueTemplate.map=Value.map;
+        valueTemplate.amountOfPlayers= Value.amountOfPlayers;
+        valueTemplate.clickCounter=Value.clickCounter;
+        valueTemplate.MovePlayer=Value.MovePlayer;
+        valueTemplate.selectedPLayer=board.getNrOfCurrentPlayer();
+
 
 
 
@@ -182,11 +333,14 @@ public class LoadBoard {
 
         FileWriter fileWriter = null;
         JsonWriter writer = null;
+
         try {
             fileWriter = new FileWriter(filename);
+
             writer = gson.newJsonWriter(fileWriter);
+
             gson.toJson(template, template.getClass(), writer);
- //           gson.toJson(template, template.getClass(), writer);
+            gson.toJson(valueTemplate, valueTemplate.getClass(), writer);
             writer.close();
         } catch (IOException e1) {
             if (writer != null) {
@@ -201,6 +355,61 @@ public class LoadBoard {
                 } catch (IOException e2) {}
             }
         }
+
+
     }
+
+    public static String jsonFile()
+    {
+        File fl = new File("target/classes/boards/");
+
+//        System.out.println("Absolute path: "+fl.getAbsolutePath());
+//        System.out.println("Files in target: "+fl.listFiles()[0]);
+        String[] filesInDir=fl.list();
+
+//        System.out.println("Load board");
+        ChoiceDialog<String> dialog = new ChoiceDialog<String>(filesInDir[1],filesInDir);
+        dialog.setTitle("Load a game");
+        dialog.setHeaderText("Select file to load");
+        Optional<String> filernr = dialog.showAndWait();
+//        System.out.println("Filenr: "+ filernr);
+
+        String[] st = filernr.toString().split("\\[");
+        String[] stJs = st[1].split("]");
+//        System.out.println("File to load: x"+ stJs[0]+"x");
+        String[] flJs=stJs[0].split("\\.");
+
+//        System.out.println(flJs[0]);
+
+        return flJs[0];
+
+    }
+
+    public static String jsonFileToSave() {
+        File fl = new File("target/classes/boards/");
+
+//        System.out.println("Absolute path: "+fl.getAbsolutePath());
+//        System.out.println("Files in target: "+fl.listFiles()[0]);
+        String[] filesInDir = fl.list();
+
+        for (int f = 0; f < filesInDir.length; f++) {
+            System.out.println(filesInDir[f]);
+
+        }
+
+//        System.out.println("Load board");
+        TextInputDialog dialog = new TextInputDialog("TestSave");
+        dialog.setTitle("Save to file");
+        dialog.setHeaderText("Enter file name: ");
+        dialog.showAndWait();
+        TextField s = dialog.getEditor();
+
+
+        System.out.println("Dialog result: "+s.getCharacters());
+
+
+        return String.valueOf(s.getCharacters());
+    }
+
 
 }
