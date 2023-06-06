@@ -77,7 +77,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             GoldStripe.executeGoldStripe(this, space);
         else if (Objects.equals(Value.map, "WhirlWind"))
             WhirlWind.executeWhirlWind(this, space);
-        else if (Objects.equals(Value.map, "RingOfDeath"))
+        else if (Objects.equals(Value.map, "RingOfDeath"))//RingOfDeath
             RingOfDeath.executeRingOfDeath(this, space);
         else if (Objects.equals(Value.map, "Testing"))
             Testing.executeTesting(this, space);
