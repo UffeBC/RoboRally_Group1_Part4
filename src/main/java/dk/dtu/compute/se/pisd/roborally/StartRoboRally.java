@@ -21,8 +21,20 @@
  */
 package dk.dtu.compute.se.pisd.roborally;
 
+import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
+import dk.dtu.compute.se.pisd.roborally.model.Space;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.swing.*;
+import java.util.Arrays;
 
 /**
  * This is a class for starting up the RoboRally application. This is a
@@ -34,10 +46,96 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 @SpringBootApplication
+@RestController
 public class StartRoboRally {
 
     public static void main(String[] args) {
         SpringApplication.run(StartRoboRally.class, args);
+
     }
+    @GetMapping("/hi")
+    public String name(@RequestParam(value = "name", defaultValue = "Player") String name){
+        return String.format("Player: %s", name);
+    };
+
+    @GetMapping("/hil")
+    public String color(@RequestParam(value = "color", defaultValue = "Gray") String color){
+        return String.format("Color: %s", color);
+    };
+    /*@GetMapping("/y")
+    public class PlayerTemplate() {
+        return
+    }*/
+
+@GetMapping("/info")
+    public String info(
+            @RequestParam(value = "name", defaultValue = "Player") String name,
+            @RequestParam(value = "color", defaultValue = "Gray") String color
+
+            //@RequestParam(value = "CommandCardField", defaultValue = "1") String[] program,
+            //@RequestParam(value = "CommandCard", defaultValue = "2") String[] cards,
+
+            //@RequestParam(value = "Space", defaultValue = "0") Space space
+            //@RequestParam(value = "Heading", defaultValue = "South") Heading heading
+
+
+            ){
+    return String.format("Player: %s, Color: %s, Space: x%s y%s, Heading: "
+            , name, color, 0,0);
+
+
+
+
+    };
+
+//    public CommandCardField[] program(@RequestParam(value = "CommandCardField", defaultValue = "1") String[] program){
+//        return program;
+//    };
+
+    public CommandCardField[] cards;
+
+
+    public Space space;
+    public Heading heading;
+
+
+//    @SpringBootApplication
+//    @RestController
+//    public class DemoApplication {
+//        public static void main(String[] args) {
+//            SpringApplication.run(DemoApplication.class, args);
+//        }
+//        @GetMapping("/hello")
+//        public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+//            return String.format("Hello %s!", name);
+//        }
+//    }
+
+    /*@RestController
+    public class HelloController {
+
+        @GetMapping("/")
+        public String index() {
+            return "Greetings from Spring Boot!";
+        }
+
+    }*/
+
+    /*
+    @Bean
+    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+        return args -> {
+
+            System.out.println("Let's inspect the beans provided by Spring Boot:");
+
+            String[] beanNames = ctx.getBeanDefinitionNames();
+            Arrays.sort(beanNames);
+            for (String beanName : beanNames) {
+                System.out.println(beanName);
+            }
+
+        };
+    }*/
 
 }
+
