@@ -30,12 +30,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -71,13 +69,31 @@ public class StartRoboRally {
     public String color(@RequestParam(value = "color", defaultValue = "Gray") String y
     ){
 
-
+/*
         return String.format("Color: %s, x:%s y:",
                 y,
                 String.valueOf(LoadBoard.loadBoard("TestSave").getSpace(1,1).getPlayer())
                 //String.valueOf(LoadBoard.loadBoard("TestSave").getPlayer(0).getSpace().y)
         );
-    };
+
+ */
+
+      return   "target/classes/boards/Share.json";    };
+
+    @PostMapping("/share")
+    public File shareFile() {
+        File fl=new File("target/classes/boards/Share.json");
+        return fl;
+    }
+
+    @PostMapping("/js")
+    public String shareJS() {
+        File fl=new File("target/classes/boards/Share.json");
+
+        return "fl.toString()";
+    }
+
+
 
     /*@GetMapping("/y")
     public class PlayerTemplate() {
