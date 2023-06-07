@@ -21,7 +21,11 @@
  */
 package dk.dtu.compute.se.pisd.roborally;
 
+import com.google.gson.JsonElement;
+import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.Adapter;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.IOUtil;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -67,14 +71,17 @@ public class StartRoboRally {
         return String.format("Player: %s %s", name, x);
     };
 
+    //private GameController gameController;
     @GetMapping("/saved")
     public String color(@RequestParam(value = "color", defaultValue = "Gray") String y
     ){
 
-
-        return String.format("Color: %s, x:%s y:",
+        //LoadBoard.saveBoard(gameController.board, "TestSave");
+        return String.format("Color: %s, x:%s y:%s, test:",
                 y,
-                String.valueOf(LoadBoard.loadBoard("TestSave").getSpace(1,1).getPlayer())
+                String.valueOf(LoadBoard.loadBoard("TestSave").getPlayer(1).getSpace().x),
+                String.valueOf(LoadBoard.loadBoard("TestSave").getPlayer(1).getSpace().y)
+
                 //String.valueOf(LoadBoard.loadBoard("TestSave").getPlayer(0).getSpace().y)
         );
     };
