@@ -106,7 +106,7 @@ public class LoadBoard
                 player.setHeading(playerTemplate.heading);
 
 
-                if (playerTemplate.name.equals(player.getName())) {
+  //              if (playerTemplate.name.equals(player.getName())) {
                     for (int j = 0; j < playerTemplate.cards.length; j++) {
                         player.getCardField(j).setCard(playerTemplate.cards[j]);
 
@@ -115,7 +115,7 @@ public class LoadBoard
                         player.getProgramField(j).setCard(playerTemplate.program[j]);
 
                     }
-                }
+   //             }
 
 
 
@@ -129,6 +129,7 @@ public class LoadBoard
             Value.clickCounter= valueTemplate.clickCounter;
 
             result.setCurrentPlayer(result.getPlayer(valueTemplate.selectedPLayer));
+            System.out.println("Current Player loaded: "+result.getCurrentPlayer().getName());
 
             reader.close();
             return result;
