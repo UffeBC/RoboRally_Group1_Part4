@@ -105,6 +105,20 @@ public class LoadBoard
                 player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
                 player.setHeading(playerTemplate.heading);
 
+
+  //              if (playerTemplate.name.equals(player.getName())) {
+                    for (int j = 0; j < playerTemplate.cards.length; j++) {
+                        player.getCardField(j).setCard(playerTemplate.cards[j]);
+
+                    }
+                    for (int j = 0; j < playerTemplate.program.length; j++) {
+                        player.getProgramField(j).setCard(playerTemplate.program[j]);
+
+                    }
+   //             }
+
+
+
             }
 
             ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
@@ -115,6 +129,7 @@ public class LoadBoard
             Value.clickCounter= valueTemplate.clickCounter;
 
             result.setCurrentPlayer(result.getPlayer(valueTemplate.selectedPLayer));
+            System.out.println("Current Player loaded: "+result.getCurrentPlayer().getName());
 
             reader.close();
             return result;
