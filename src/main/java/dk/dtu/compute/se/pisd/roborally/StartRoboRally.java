@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -30,11 +31,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.*;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * This is a class for starting up the RoboRally application. This is a
@@ -49,19 +52,33 @@ import java.util.Arrays;
 @RestController
 public class StartRoboRally {
 
+
     public static void main(String[] args) {
         SpringApplication.run(StartRoboRally.class, args);
-
+        System.out.println(LoadBoard.loadBoard("TestSave").width);
     }
     @GetMapping("/hi")
-    public String name(@RequestParam(value = "name", defaultValue = "Player") String name){
-        return String.format("Player: %s", name);
+    public String name(
+            @RequestParam(value = "name", defaultValue = "Player") String name,
+
+            @RequestParam(value = "2") int x
+            ){
+
+        return String.format("Player: %s %s", name, x);
     };
 
-    @GetMapping("/hil")
-    public String color(@RequestParam(value = "color", defaultValue = "Gray") String color){
-        return String.format("Color: %s", color);
+    @GetMapping("/saved")
+    public String color(@RequestParam(value = "color", defaultValue = "Gray") String y
+    ){
+
+
+        return String.format("Color: %s, x:%s y:",
+                y,
+                String.valueOf(LoadBoard.loadBoard("TestSave").getSpace(1,1).getPlayer())
+                //String.valueOf(LoadBoard.loadBoard("TestSave").getPlayer(0).getSpace().y)
+        );
     };
+
     /*@GetMapping("/y")
     public class PlayerTemplate() {
         return
@@ -69,10 +86,11 @@ public class StartRoboRally {
 
 @GetMapping("/info")
     public String info(
-            @RequestParam(value = "name", defaultValue = "Player") String name,
-            @RequestParam(value = "color", defaultValue = "Gray") String color
 
-            //@RequestParam(value = "CommandCardField", defaultValue = "1") String[] program,
+            @RequestParam(value = "name", defaultValue = "Player") String name,
+            @RequestParam(value = "color", defaultValue = "Gray") String color,
+
+            @RequestParam(value = "CommandCardField", defaultValue = "1") String[] program
             //@RequestParam(value = "CommandCard", defaultValue = "2") String[] cards,
 
             //@RequestParam(value = "Space", defaultValue = "0") Space space
@@ -80,8 +98,8 @@ public class StartRoboRally {
 
 
             ){
-    return String.format("Player: %s, Color: %s, Space: x%s y%s, Heading: "
-            , name, color, 0,0);
+    return String.format("Player: %s, Color: %s, Space: x%s y%s, Heading: new: %s"
+            , name, color, 0,0, program[0]);
 
 
 
