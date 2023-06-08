@@ -21,7 +21,7 @@ public class FileUploadController {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             StringBuilder x = new StringBuilder();
-            while(bufferedReader.readLine()!=null){
+            while (bufferedReader.readLine() != null) {
                 x.append(bufferedReader.readLine());
             }
 
@@ -36,5 +36,25 @@ public class FileUploadController {
             e.printStackTrace();
             return "Failed to upload the file.";
         }
+    }
+
+    @PostMapping("/updateJsonFile")
+    public String updateJsonFile() {d
+        try {
+            String filePath = "target/classes/boards/TestSave.json";
+
+            // Write the JSON content to the file
+            FileWriter fileWriter = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(json);
+            bufferedWriter.close();
+
+            return "JSON file updated successfully!";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Failed to update the JSON file.";
+        }
+
+
     }
 }
