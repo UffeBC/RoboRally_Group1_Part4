@@ -36,12 +36,21 @@ import javax.swing.*;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.*;
+
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+
 public class GameController {
     final public AppController appController;
     final public Board board;

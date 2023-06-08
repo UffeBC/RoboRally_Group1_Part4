@@ -46,15 +46,15 @@ import java.util.Objects;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-@SpringBootApplication
-@RestController
+//@SpringBootApplication
+//@RestController
 public class StartRoboRally {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(StartRoboRally.class, args);
-        System.out.println(LoadBoard.loadBoard("TestSave").width);
+        RoboRally.main(args);;
     }
+    /*
     @GetMapping("/hi")
     public String name(
             @RequestParam(value = "name", defaultValue = "Player") String name,
@@ -69,6 +69,8 @@ public class StartRoboRally {
     public String color(@RequestParam(value = "color", defaultValue = "Gray") String y
     ){
 
+     */
+
 /*
         return String.format("Color: %s, x:%s y:",
                 y,
@@ -77,7 +79,7 @@ public class StartRoboRally {
         );
 
  */
-
+/*
       return   "target/classes/boards/Share.json";    };
 
     @PostMapping("/share")
@@ -92,6 +94,8 @@ public class StartRoboRally {
 
         return "fl.toString()";
     }
+
+ */
 
 
 
