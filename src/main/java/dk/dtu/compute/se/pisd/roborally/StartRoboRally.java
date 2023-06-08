@@ -49,6 +49,7 @@ public class StartRoboRally {
 
     public static void main(String[] args) {
         SpringApplication.run(StartRoboRally.class, args);
+        RoboRally.main(args);
         //System.out.println(LoadBoard.loadBoard("TestSave").width);
     }
 
