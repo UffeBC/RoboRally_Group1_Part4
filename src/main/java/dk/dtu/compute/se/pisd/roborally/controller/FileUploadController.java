@@ -1,8 +1,10 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.net.URLConnection;
 
 @RestController
 public class FileUploadController {
@@ -52,21 +54,27 @@ public class FileUploadController {
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            FileReader fileReader = new FileReader("http://10.209.211.226:8080/upload");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            UrlResource resource = new UrlResource("http://localhost:8080/update");
 
 
-            StringBuilder x = new StringBuilder();
-            while(bufferedReader.readLine()!=null){
-                x.append(bufferedReader.readLine());
-            }
+//            File fil = resource.getFile();
+//
+////            String fileToRead = "localhost:8080/upload";
+//            FileReader fileReader = new FileReader(fil);
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//
+//
+//            StringBuilder x = new StringBuilder();
+//            while(bufferedReader.readLine()!=null){
+//                x.append(bufferedReader.readLine());
+//            }
         //dependency injection
 
 
-            bufferedWriter.write(x.toString());
+            bufferedWriter.write(resource.toString());
             bufferedWriter.close();
 
-            return x.toString();//"File uploaded successfully!";
+            return resource.getFile().getParentFile().toString();//"File uploaded successfully!";
         } catch (IOException e) {
             e.printStackTrace();
             return "Failed to upload the file.";
