@@ -27,11 +27,9 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
 
-import dk.dtu.compute.se.pisd.roborally.model.WebAccess;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -41,10 +39,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Stream;
+
 import dk.dtu.compute.se.pisd.roborally.fileaccess.*;
+import org.springframework.core.io.Resource;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * ...
@@ -112,8 +114,88 @@ public class AppController implements Observer {
             gameController.startProgrammingPhase();
 
             roboRally.createBoardView(gameController);
-            WebAccess wb = new WebAccess(board);
+  //          WebAccess wb = new WebAccess(board);
+       //     FileUploadController flctl=new FileUploadController();
+            UploadingFilesApplication uplfila =new UploadingFilesApplication();
+            System.out.println("");
+ //           UploadingFilesApplication("share");
+            StorageService sts=new StorageService() {
+                @Override
+                public void init() {
 
+                }
+
+                @Override
+                public void store(MultipartFile file) {
+
+                }
+
+                @Override
+                public Stream<Path> loadAll() {
+                    return null;
+                }
+
+                @Override
+                public Path load(String filename) {
+                    return null;
+                }
+
+                @Override
+                public Resource loadAsResource(String filename) {
+                    return null;
+                }
+
+                @Override
+                public void deleteAll() {
+
+                }
+
+
+            };
+
+            Model md=new Model() {
+                @Override
+                public Model addAttribute(String attributeName, Object attributeValue) {
+                    return null;
+                }
+
+                @Override
+                public Model addAttribute(Object attributeValue) {
+                    return null;
+                }
+
+                @Override
+                public Model addAllAttributes(Collection<?> attributeValues) {
+                    return null;
+                }
+
+                @Override
+                public Model addAllAttributes(Map<String, ?> attributes) {
+                    return null;
+                }
+
+                @Override
+                public Model mergeAttributes(Map<String, ?> attributes) {
+                    return null;
+                }
+
+                @Override
+                public boolean containsAttribute(String attributeName) {
+                    return false;
+                }
+
+                @Override
+                public Object getAttribute(String attributeName) {
+                    return null;
+                }
+
+                @Override
+                public Map<String, Object> asMap() {
+                    return null;
+                }
+            };
+
+            FileUploadController flctl=new FileUploadController(sts);
         }
     }
 
