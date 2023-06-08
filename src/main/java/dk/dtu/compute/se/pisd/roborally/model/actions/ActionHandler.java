@@ -1,9 +1,12 @@
 package dk.dtu.compute.se.pisd.roborally.model.actions;
 
-import dk.dtu.compute.se.pisd.roborally.model.Maps.GoldStripe;
+import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
+import dk.dtu.compute.se.pisd.roborally.model.Maps.*;
 import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+
+import java.util.Objects;
 
 public class ActionHandler {
     public static void exePushPanel(String space, Player player, int push) {
@@ -127,21 +130,23 @@ public class ActionHandler {
         exePushPanel(space, player, push);
     }
 
+    private static int getNumberOfCheckPoints(){
+        if (Objects.equals(Value.map, "GoldenStripe"))
+            return GoldStripe.nrCheckPoints;
+        else if (Objects.equals(Value.map, "WhirlWind"))
+            return WhirlWind.nrCheckPoints;
+        else if (Objects.equals(Value.map, "RingOfDeath"))
+            return RingOfDeath.nrCheckPoints;
+        return 0;
+    }
     public static void exeGiveToken(String space, Player player) {
-        if (space.equals("1N")){
-            if(player.getCheckToken() == 0){
-                player.setCheckToken();
 
-            }
-        }
-        else if (space.equals("2N")){
-            if(player.getCheckToken() == 1 ){
-                player.setCheckToken();
-            }
-        }
-        else if (space.equals("3N")){
-            if(player.getCheckToken() == 2 ){
-                player.setCheckToken();
+        int token = player.getCheckToken() + 1;
+        String nextCheckPoint = Integer.toString(token) +"N";
+
+        if(space.equals(nextCheckPoint) ){
+            player.setCheckToken();
+            if(getNumberOfCheckPoints() == token){
                 player.board.setPhase(Phase.GAME_WON);
             }
         }

@@ -164,6 +164,7 @@ public class GameController {
             Optional<ButtonType> result = alert.showAndWait();
             appController.stopGame();
         }
+
     }
 
 
@@ -180,7 +181,10 @@ public class GameController {
                 }
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
                 //
-                try {if (card.command == Command.OPTION_LEFT_RIGHT) nextPlayerNumber-=1;}
+                try {
+                    if (card.command == Command.OPTION_LEFT_RIGHT || card.command == Command.OPTION_FWD_FAST_FORWARD)
+                        nextPlayerNumber-=1;
+                }
                 catch (Exception ignored) {}
                 //
                 //
@@ -206,6 +210,7 @@ public class GameController {
                             if(board.getPhase() == Phase.GAME_WON){
                                 board.setCurrentPlayer(board.getPlayer(i));
                                 return;
+
                             }
                         }
                         startProgrammingPhase();
@@ -257,6 +262,7 @@ public class GameController {
                     this.fastForward(player);
                     break;
                 case OPTION_LEFT_RIGHT:
+                case OPTION_FWD_FAST_FORWARD:
                     this.optionCard(player);
                     break;
                 default:
@@ -275,8 +281,12 @@ public class GameController {
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
+                hitPlayer(space, heading);
                 target.setPlayer(player);
             }
+        }
+        if (player.board.getPhase()==Phase.PLAYER_INTERACTION){
+            executeStep();
         }
     }
 
@@ -313,6 +323,16 @@ public class GameController {
             return true;
         } else {
             return false;
+        }
+    }
+    public void hitPlayer(Space space, Heading heading){
+        Space target = board.getNeighbour(space, heading);
+        if (target.getPlayer() != null ){
+          Player  move = target.getPlayer();
+          Heading headMove = move.getHeading();
+          move.setHeading(heading);
+          moveForward(move);
+          move.setHeading(headMove);
         }
     }
 

@@ -101,7 +101,24 @@ public class AppController implements Observer {
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                player.setSpace(board.getSpace(i % board.width, i));
+                if(board.getPlayerNumber(player) == 0){
+                    player.setSpace(board.getSpace(0 % board.width, 0));
+                }
+                else if(board.getPlayerNumber(player) == 1){
+                    player.setSpace(board.getSpace(1 % board.width, 1));
+                }
+                else if(board.getPlayerNumber(player) == 2){
+                    player.setSpace(board.getSpace(0 % board.width, 4));
+                }
+                else if(board.getPlayerNumber(player) == 3){
+                    player.setSpace(board.getSpace(1 % board.width, 5));
+                }
+                else if(board.getPlayerNumber(player) == 4){
+                    player.setSpace(board.getSpace(1 % board.width, 6));
+                }
+                else if(board.getPlayerNumber(player) == 5){
+                    player.setSpace(board.getSpace(0 % board.width, 7));
+                }
             }
 
             Value.amountOfPlayers = no;
