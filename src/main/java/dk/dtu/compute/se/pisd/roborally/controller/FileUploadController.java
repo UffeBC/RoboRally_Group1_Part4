@@ -15,7 +15,7 @@ public class FileUploadController {
     public String uploadFile(@RequestBody String json) {
         try {
             // Write the JSON content to a file
-            String filePath = "target/classes/boards/TestSave.json";
+            String filePath = "target/classes/boards/Share.json";
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(json);
