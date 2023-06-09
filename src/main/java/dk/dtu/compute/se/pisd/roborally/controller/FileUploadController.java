@@ -54,7 +54,7 @@ public class FileUploadController {
 
 
     //
-    @GetMapping(value = "/uploadt")
+    @GetMapping(value = "/uploadt")//
     public String greeting() throws IOException {
         String uri = "http://localhost:8080/upload";
         RestTemplate restTemplate = new RestTemplate();
