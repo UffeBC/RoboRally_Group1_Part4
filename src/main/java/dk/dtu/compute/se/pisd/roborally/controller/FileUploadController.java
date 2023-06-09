@@ -1,5 +1,10 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+import dk.dtu.compute.se.pisd.roborally.model.Board;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import ch.qos.logback.core.model.Model;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import org.springframework.core.io.UrlResource;
@@ -20,12 +25,11 @@ public class FileUploadController {
     public String uploadFile(/*@RequestBody String json*/) {
         try {
 
-            String json = "TestSave2";
+            String json = "Share";
             // Write the JSON content to a file
-            String filePath = "target/classes/boards/TestSave2.json";
-//            FileWriter fileWriter = new FileWriter(filePath);
-//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            //
+            String filePath = "target/classes/boards/Share.json";
+            System.out.println("File to web: "+filePath);
+
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 

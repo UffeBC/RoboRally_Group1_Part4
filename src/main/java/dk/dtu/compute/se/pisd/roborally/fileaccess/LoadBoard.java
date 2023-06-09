@@ -309,6 +309,7 @@ public class LoadBoard
         valueTemplate.MovePlayer=Value.MovePlayer;
         valueTemplate.selectedPLayer=board.getNrOfCurrentPlayer();
 
+        template.val=valueTemplate;
 
 
 
@@ -340,8 +341,9 @@ public class LoadBoard
 
             writer = gson.newJsonWriter(fileWriter);
 
+  //          gson.toJson(valueTemplate, valueTemplate.getClass(), writer);
             gson.toJson(template, template.getClass(), writer);
-            gson.toJson(valueTemplate, valueTemplate.getClass(), writer);
+
             writer.close();
         } catch (IOException e1) {
             if (writer != null) {

@@ -44,4 +44,6 @@ public class BoardTemplate {
     public int numberOfPlayers;
     public List<PlayerTemplate> players = new ArrayList<>();
 
+    public ValueTemplate val;
+
 }

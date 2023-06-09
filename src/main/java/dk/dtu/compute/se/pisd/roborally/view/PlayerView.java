@@ -204,17 +204,35 @@ public class PlayerView extends Tab implements ViewObserver {
                     //      an interactive command card, and the buttons should represent
                     //      the player's choices of the interactive command card. The
                     //      following is just a mockup showing two options
-                    Button optionButton = new Button("turn Right");
-                    optionButton.setOnAction( e -> gameController.turnRight(player));
-//                    optionButton.setOnAction(e -> player.board.setPhase(Phase.ACTIVATION));
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
+                    if(player.getProgramField(player.board.getStep()).getCard().command == Command.OPTION_LEFT_RIGHT) {
+                        Button optionButton = new Button("turn Right");
+                        optionButton.setOnAction(e -> gameController.turnRight(player));
 
-                    optionButton = new Button("turn Left");
-                    optionButton.setOnAction( e -> gameController.turnLeft(player));
-//                    optionButton.setOnAction(e -> player.board.setPhase(Phase.ACTIVATION));
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
+                        optionButton.setDisable(false);
+                        playerInteractionPanel.getChildren().add(optionButton);
+
+                        optionButton = new Button("turn Left");
+                        optionButton.setOnAction(e -> gameController.turnLeft(player));
+
+                        optionButton.setDisable(false);
+                        playerInteractionPanel.getChildren().add(optionButton);
+                    }
+                    if(player.getProgramField(player.board.getStep()).getCard().command == Command.OPTION_FWD_FAST_FORWARD){
+                        Button optionButton = new Button("FWD");
+                        optionButton.setOnAction(e -> gameController.moveForward(player));
+;
+                        optionButton.setDisable(false);
+                        playerInteractionPanel.getChildren().add(optionButton);
+
+                        optionButton = new Button("Fast FWD");
+                        optionButton.setOnAction(e -> gameController.fastForward(player));
+
+                        optionButton.setDisable(false);
+                        playerInteractionPanel.getChildren().add(optionButton);
+                    }
+
+
+
                 }
             }
         }
