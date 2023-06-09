@@ -109,7 +109,7 @@ public class GameController {
                 }
             }
         }
-        flicntr.updateJsonFile();
+        //flicntr.updateJsonFile();
         /*
         long nt = currentTimeMillis()+1000;
         long ct = currentTimeMillis();
