@@ -1,5 +1,10 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+import dk.dtu.compute.se.pisd.roborally.model.Board;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -11,7 +16,7 @@ public class FileUploadController {
     public String uploadFile(/*@RequestBody String json*/) {
         try {
 
-            String json = "TestSave";
+            String json = "Share";
             // Write the JSON content to a file
             String filePath = "target/classes/boards/TestSave.json";
 //            FileWriter fileWriter = new FileWriter(filePath);
@@ -38,15 +43,15 @@ public class FileUploadController {
         }
     }
 
-    @PostMapping("/updateJsonFile")
-    public String updateJsonFile() {d
+    @PostMapping("/upload")
+    public String updateJsonFile() {
         try {
-            String filePath = "target/classes/boards/TestSave.json";
+            String filePath = "target/classes/boards/ShareIn.json";
 
             // Write the JSON content to the file
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(json);
+            bufferedWriter.write(filePath);
             bufferedWriter.close();
 
             return "JSON file updated successfully!";

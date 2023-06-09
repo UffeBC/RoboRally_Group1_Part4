@@ -45,11 +45,15 @@ import java.util.Optional;
 public class GameController {
     final public AppController appController;
     final public Board board;
+    private   FileUploadController flicntr;
 
 
     public GameController(@NotNull Board board, @NotNull AppController appController) {
         this.board = board;
         this.appController = appController;
+
+        flicntr=new FileUploadController();
+        System.out.println("FileUploadController started");
     }
 
     /**
@@ -76,6 +80,7 @@ public class GameController {
             }
         }
 
+
     }
 
     // XXX: V2
@@ -99,6 +104,7 @@ public class GameController {
                 }
             }
         }
+        flicntr.updateJsonFile();
     }
 
     // XXX: V2
@@ -143,6 +149,8 @@ public class GameController {
     public void executePrograms() {
         board.setStepMode(false);
         LoadBoard.saveBoard(board,"Share");
+        flicntr.uploadFile();
+
         continuePrograms();
     }
 
