@@ -39,8 +39,10 @@ public class FileUploadController {
     }
 
     @PostMapping("/updateJsonFile")
-    public String updateJsonFile() {d
+    public String updateJsonFile() {
         try {
+
+            String json = "TestSave";
             String filePath = "target/classes/boards/TestSave.json";
 
             // Write the JSON content to the file
