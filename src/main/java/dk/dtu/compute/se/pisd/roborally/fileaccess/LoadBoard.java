@@ -104,6 +104,7 @@ public class LoadBoard
                 result.addPlayer(player);
                 player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
                 player.setHeading(playerTemplate.heading);
+                player.setTokenVal(playerTemplate.checkToken);
 
 
   //              if (playerTemplate.name.equals(player.getName())) {
@@ -121,14 +122,14 @@ public class LoadBoard
 
             }
 
-            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
-            Value.map=valueTemplate.map;
-            Value.amountOfPlayers=valueTemplate.amountOfPlayers;
-            Value.MovePlayer= valueTemplate.MovePlayer;
-            Value.selectedPLayer=valueTemplate.selectedPLayer;
-            Value.clickCounter= valueTemplate.clickCounter;
+//            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
+            Value.map=template.val.map;
+            Value.amountOfPlayers=template.val.amountOfPlayers;
+            Value.MovePlayer= template.val.MovePlayer;
+            Value.selectedPLayer=template.val.selectedPLayer;
+            Value.clickCounter= template.val.clickCounter;
 
-            result.setCurrentPlayer(result.getPlayer(valueTemplate.selectedPLayer));
+            result.setCurrentPlayer(result.getPlayer(template.val.selectedPLayer));
             System.out.println("Current Player loaded: "+result.getCurrentPlayer().getName());
 
             reader.close();
@@ -254,6 +255,7 @@ public class LoadBoard
             playerTemplate.number=player.board.getPlayerNumber(player);
             playerTemplate.x=player.getSpace().x;
             playerTemplate.y=player.getSpace().y;
+            playerTemplate.checkToken=player.getCheckToken();
 
 
             playerTemplate.cards = new CommandCard[player.getCards().length];

@@ -56,7 +56,15 @@ public class AppController implements Observer {
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
+    public enum Roles {
+        LOCAL, WEBPLAYER, HOST;
+    }
+
+    public Roles role=Roles.LOCAL;
+
     final private RoboRally roboRally;
+
+    private WebPlayerController webCon;
 
     private GameController gameController;
 
@@ -129,6 +137,7 @@ public class AppController implements Observer {
 
             roboRally.createBoardView(gameController);
         }
+
     }
 
     public void saveGame()
@@ -210,6 +219,31 @@ public class AppController implements Observer {
 
 
 
+
+
+    }
+
+    public void joinWebGame()
+    {
+        webCon = new WebPlayerController();
+        role=Roles.WEBPLAYER;
+
+        String jsonFile="ShareIn";
+
+
+        Board board= LoadBoard.loadBoard(jsonFile);
+
+        gameController = new GameController(board,this);
+
+
+        gameController.startProgrammingPhase();
+
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Player player = board.getPlayer(i);
+            LoadBoard.loadCardAndProg(board, jsonFile, player);
+        }
+
+        roboRally.createBoardView(gameController);
 
 
     }

@@ -61,7 +61,8 @@ public class FileUploadController {
         try {
 
 
-            String uri = "http://10.209.211.226:8080/upload";
+ //           String uri = "http://10.209.211.226:8080/upload";
+            String uri = "http://localhost:8080/upload";
             RestTemplate restTemplate = new RestTemplate();
             String result = restTemplate.getForObject(uri, String.class);
 

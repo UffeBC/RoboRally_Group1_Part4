@@ -14,6 +14,7 @@ public class PlayerTemplate {
     public String name;
     public String color;
 
+    public int checkToken;
 
     public int number;
     public CommandCard[] program;
