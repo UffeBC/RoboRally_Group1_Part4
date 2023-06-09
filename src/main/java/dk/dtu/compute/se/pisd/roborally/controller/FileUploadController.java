@@ -1,10 +1,13 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import ch.qos.logback.core.model.Model;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.net.URLConnection;
+
+import static java.lang.System.currentTimeMillis;
 
 @RestController
 public class FileUploadController {
@@ -13,9 +16,9 @@ public class FileUploadController {
     public String uploadFile(/*@RequestBody String json*/) {
         try {
 
-            String json = "TestSave";
+            String json = "TestSave2";
             // Write the JSON content to a file
-            String filePath = "target/classes/boards/TestSave.json";
+            String filePath = "target/classes/boards/TestSave2.json";
 //            FileWriter fileWriter = new FileWriter(filePath);
 //            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             //
@@ -23,7 +26,7 @@ public class FileUploadController {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             StringBuilder x = new StringBuilder();
-            while(bufferedReader.readLine()!=null){
+            while(bufferedReader.ready()){
                 x.append(bufferedReader.readLine());
             }
 
@@ -42,12 +45,22 @@ public class FileUploadController {
 
 
 
+    //
+    @GetMapping(value = "/upload/{width}")
+    public String greeting(
+            @RequestParam(value="width") String width, Model model) {
+        model.getBodyText();
+        System.out.println(model.getBodyText());
+        return "hi";
+    }
+    //
 
-    @GetMapping("/upload")
+    @GetMapping("/uploads")
+    @ResponseBody
     public String getFile(/*@RequestBody String json*/) {
         try {
 
-            String json = "TestSave2";
+            //String json = "TestSave2";
             // Write the JSON content to a file
             String filePath = "target/classes/boards/TestSave.json";
 
@@ -55,6 +68,10 @@ public class FileUploadController {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             UrlResource resource = new UrlResource("http://localhost:8080/update");
+
+//            @RequestParam
+           // @RequestBody String s
+//                    @ResponseBody
 
 
 //            File fil = resource.getFile();
@@ -71,10 +88,10 @@ public class FileUploadController {
         //dependency injection
 
 
-            bufferedWriter.write(resource.toString());
+            bufferedWriter.write(2);
             bufferedWriter.close();
 
-            return resource.getFile().getParentFile().toString();//"File uploaded successfully!";
+            return String.valueOf(UrlResource.from("http://localhost:8080/update").contentLength());//"File uploaded successfully!";
         } catch (IOException e) {
             e.printStackTrace();
             return "Failed to upload the file.";
