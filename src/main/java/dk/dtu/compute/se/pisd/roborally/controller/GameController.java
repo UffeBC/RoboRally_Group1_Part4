@@ -36,6 +36,11 @@ import javax.swing.*;
 import java.util.Objects;
 import java.util.Optional;
 
+import java.lang.*;
+
+import static java.lang.System.currentTimeMillis;
+
+
 /**
  * ...
  *
@@ -105,6 +110,14 @@ public class GameController {
             }
         }
         flicntr.updateJsonFile();
+        /*
+        long nt = currentTimeMillis()+1000;
+        long ct = currentTimeMillis();
+        while(nt>=ct){ct = currentTimeMillis();}
+
+         */
+
+        flicntr.uploadFile();
     }
 
     // XXX: V2
@@ -149,7 +162,8 @@ public class GameController {
     public void executePrograms() {
         board.setStepMode(false);
         LoadBoard.saveBoard(board,"Share");
-        flicntr.uploadFile();
+
+ //       flicntr.uploadFile();
 
         continuePrograms();
     }
