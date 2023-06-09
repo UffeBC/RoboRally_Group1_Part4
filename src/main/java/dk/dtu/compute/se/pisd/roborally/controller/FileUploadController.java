@@ -55,21 +55,31 @@ public class FileUploadController {
 
     //
     @GetMapping(value = "/uploadt")//
-    public String greeting() throws IOException {
-        String uri = "http://localhost:8080/upload";
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(uri, String.class);
+    public String greeting() //throws IOException
+    {
+      //  String uri = "http://localhost:8080/upload";
+        try {
 
-        String filePath = "target/classes/boards/TestSave.json";
-        FileWriter fileWriter = new FileWriter(filePath);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        assert result != null;
-        bufferedWriter.write(result);
-        bufferedWriter.close();
+
+            String uri = "http://10.209.211.226:8080/upload";
+            RestTemplate restTemplate = new RestTemplate();
+            String result = restTemplate.getForObject(uri, String.class);
+
+            String filePath = "target/classes/boards/ShareIn.json";
+            FileWriter fileWriter = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            assert result != null;
+            bufferedWriter.write(result);
+            bufferedWriter.close();
+            //
+            System.out.println(result);
+            return result;
+        }catch (IOException e) {
+            e.printStackTrace();
+            return "Failed to upload the file.";
+        }
         //
-        System.out.println(result);
-        //
-        return result;
+
     }
     //
 
