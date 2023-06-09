@@ -25,20 +25,14 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.FindSpace;
-import dk.dtu.compute.se.pisd.roborally.model.Maps.GoldStripe;
 import dk.dtu.compute.se.pisd.roborally.model.actions.ActionHandler;
-import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.util.Objects;
 import java.util.Optional;
 
 import java.lang.*;
-
-import static java.lang.System.currentTimeMillis;
 
 
 /**
@@ -109,7 +103,7 @@ public class GameController {
                 }
             }
         }
-        flicntr.greeting();
+        flicntr.downloadFile();
         /*
         long nt = currentTimeMillis()+1000;
         long ct = currentTimeMillis();

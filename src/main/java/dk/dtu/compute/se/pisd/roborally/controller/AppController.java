@@ -64,7 +64,7 @@ public class AppController implements Observer {
 
     final private RoboRally roboRally;
 
-    private WebPlayerController webCon;
+    public WebPlayerController webCon;
 
     private GameController gameController;
 

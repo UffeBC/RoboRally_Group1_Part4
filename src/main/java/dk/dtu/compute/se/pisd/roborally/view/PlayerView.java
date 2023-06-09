@@ -78,6 +78,7 @@ public class PlayerView extends Tab implements ViewObserver {
         programPane.setVgap(2.0);
         programPane.setHgap(2.0);
         programCardViews = new CardFieldView[Player.NO_REGISTERS];
+
         for (int i = 0; i < Player.NO_REGISTERS; i++) {
             CommandCardField cardField = player.getProgramField(i);
             if (cardField != null) {

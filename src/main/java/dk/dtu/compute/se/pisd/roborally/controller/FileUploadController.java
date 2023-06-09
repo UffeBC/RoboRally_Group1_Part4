@@ -1,22 +1,11 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ch.qos.logback.core.model.Model;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.processing.Generated;
 import java.io.*;
-import java.net.URLConnection;
-import java.util.List;
-
-import static java.lang.System.currentTimeMillis;
 
 @RestController
 public class FileUploadController {
@@ -55,7 +44,7 @@ public class FileUploadController {
 
     //
     @GetMapping(value = "/uploadt")//
-    public String greeting() //throws IOException
+    public String downloadFile() //throws IOException
     {
       //  String uri = "http://localhost:8080/upload";
         try {
