@@ -127,15 +127,27 @@ public class GameController {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
-        board.setCurrentPlayer(board.getPlayer(0));
+        if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
+           board.setCurrentPlayer(board.getPlayer(0));
+        else board.setCurrentPlayer(board.getPlayer(appController.webCon.getPlayerNr()));
         board.setStep(0);
     }
 
     // XXX: V2
     private void makeProgramFieldsVisible(int register) {
-        if (register >= 0 && register < Player.NO_REGISTERS) {
-            for (int i = 0; i < board.getPlayersNumber(); i++) {
-                Player player = board.getPlayer(i);
+        if (register >= 0 && register < Player.NO_REGISTERS )
+        {
+            if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
+            {
+                for (int i = 0; i < board.getPlayersNumber(); i++) {
+                    Player player = board.getPlayer(i);
+                    CommandCardField field = player.getProgramField(register);
+                    field.setVisible(true);
+                }
+            }
+            else
+            {
+                Player player = board.getPlayer(appController.webCon.getPlayerNr());
                 CommandCardField field = player.getProgramField(register);
                 field.setVisible(true);
             }
@@ -144,12 +156,28 @@ public class GameController {
 
     // XXX: V2
     private void makeProgramFieldsInvisible() {
-        for (int i = 0; i < board.getPlayersNumber(); i++) {
-            Player player = board.getPlayer(i);
-            for (int j = 0; j < Player.NO_REGISTERS; j++) {
+        if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
+        {
+        for (int i = 0; i < board.getPlayersNumber(); i++)
+        {
+            Player player = board.getPlayer(appController.webCon.getPlayerNr());
+            for (int j = 0; j < Player.NO_REGISTERS; j++)
+            {
                 CommandCardField field = player.getProgramField(j);
                 field.setVisible(false);
             }
+        }
+        }
+        else
+        {
+            Player player = board.getPlayer(appController.webCon.getPlayerNr());
+            for (int j = 0; j < Player.NO_REGISTERS; j++)
+            {
+                CommandCardField field = player.getProgramField(j);
+                field.setVisible(false);
+            }
+
+
         }
     }
 
