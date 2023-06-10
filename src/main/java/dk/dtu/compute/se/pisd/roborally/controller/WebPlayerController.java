@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class WebPlayerController
 {
-    String HostIp;
+
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     int playerNr;
@@ -27,7 +27,7 @@ public class WebPlayerController
 
         playerNr=result.get();
 
-        TextInputDialog ipdialog = new TextInputDialog("HostIp");
+        TextInputDialog ipdialog = new TextInputDialog("localhost");
         ipdialog.setTitle("Get HostIp");
         ipdialog.setHeaderText("Enter HostIp: ");
         ipdialog.showAndWait();

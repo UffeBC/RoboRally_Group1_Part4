@@ -66,13 +66,27 @@ public class AppController implements Observer {
 
     public WebPlayerController webCon;
 
+    public WebHostController webHost;
+
     private GameController gameController;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
 
-    public void newGame() {
+    public void newGame()
+    {
+
+        setUpGame();
+
+        gameController.startProgrammingPhase();
+
+        roboRally.createBoardView(gameController);
+
+    }
+
+    private void setUpGame()
+    {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
         dialog.setHeaderText("Select number of players");
@@ -103,41 +117,30 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = new Board(tileLength,tileHeight);
-            gameController = new GameController(board,this);
+            Board board = new Board(tileLength, tileHeight);
+            gameController = new GameController(board, this);
             int no = result.get();
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                if(board.getPlayerNumber(player) == 0){
+                if (board.getPlayerNumber(player) == 0) {
                     player.setSpace(board.getSpace(0 % board.width, 0));
-                }
-                else if(board.getPlayerNumber(player) == 1){
+                } else if (board.getPlayerNumber(player) == 1) {
                     player.setSpace(board.getSpace(1 % board.width, 1));
-                }
-                else if(board.getPlayerNumber(player) == 2){
+                } else if (board.getPlayerNumber(player) == 2) {
                     player.setSpace(board.getSpace(0 % board.width, 4));
-                }
-                else if(board.getPlayerNumber(player) == 3){
+                } else if (board.getPlayerNumber(player) == 3) {
                     player.setSpace(board.getSpace(1 % board.width, 5));
-                }
-                else if(board.getPlayerNumber(player) == 4){
+                } else if (board.getPlayerNumber(player) == 4) {
                     player.setSpace(board.getSpace(1 % board.width, 6));
-                }
-                else if(board.getPlayerNumber(player) == 5){
+                } else if (board.getPlayerNumber(player) == 5) {
                     player.setSpace(board.getSpace(0 % board.width, 7));
                 }
             }
 
             Value.amountOfPlayers = no;
 
-            // XXX: V2
-            // board.setCurrentPlayer(board.getPlayer(0));
-            gameController.startProgrammingPhase();
-
-            roboRally.createBoardView(gameController);
         }
-
     }
 
     public void saveGame()
@@ -215,12 +218,6 @@ public class AppController implements Observer {
  */
 
 
-
-
-
-
-
-
     }
 
     public void joinWebGame()
@@ -245,6 +242,20 @@ public class AppController implements Observer {
 
         roboRally.createBoardView(gameController);
 
+
+    }
+
+    public void hostWebGame()
+    {
+
+        setUpGame();
+
+        webHost = new WebHostController(gameController.board);
+        role=Roles.HOST;
+
+        gameController.startProgrammingPhase();
+
+        roboRally.createBoardView(gameController);
 
     }
 

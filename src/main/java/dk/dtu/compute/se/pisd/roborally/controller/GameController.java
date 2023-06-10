@@ -103,7 +103,8 @@ public class GameController {
                 }
             }
         }
-        flicntr.downloadFile();
+        if (appController.role== AppController.Roles.WEBPLAYER)
+           flicntr.downloadFile(appController.webCon.hostIp);
         /*
         long nt = currentTimeMillis()+1000;
         long ct = currentTimeMillis();
@@ -155,9 +156,13 @@ public class GameController {
     // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
-        LoadBoard.saveBoard(board,"Share");
 
- //       flicntr.uploadFile();
+        if (appController.role != AppController.Roles.LOCAL)
+        {
+            LoadBoard.saveBoard(board, "Share");
+
+            flicntr.uploadFile();
+        }
 
         continuePrograms();
     }

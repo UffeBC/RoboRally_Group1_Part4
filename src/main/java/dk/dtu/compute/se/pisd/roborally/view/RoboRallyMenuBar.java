@@ -44,6 +44,8 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem joinGame;
 
+    private MenuItem hostGame;
+
     //
     private Menu selectMap;
     private MenuItem Default;
@@ -80,6 +82,11 @@ public class RoboRallyMenuBar extends MenuBar {
         joinGame = new MenuItem("Join a Web Game");
         joinGame.setOnAction( e -> this.appController.joinWebGame());
         controlMenu.getItems().add(joinGame);
+
+
+        hostGame = new MenuItem("Host a Web Game");
+        hostGame.setOnAction( e -> this.appController.hostWebGame());
+        controlMenu.getItems().add(hostGame);
 
 
         saveGame = new MenuItem("Save Game");
