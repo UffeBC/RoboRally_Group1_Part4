@@ -55,6 +55,7 @@ public class FileUploadController {
         String result = restTemplate.getForObject(uri, String.class);
 
         String filePath = "target/classes/boards/ShareIn.json";
+        System.out.println("Download file to ShareIn.json from: "+uri);
 
         try {
 

@@ -35,4 +35,9 @@ public class WebHostController {
 
    //     System.out.println("HostIp: "+hostIp);
     }
+
+    public String getIpWebPlyayer(int i)
+    {
+        return wepPlayerIp.get(i);
+    }
 }
