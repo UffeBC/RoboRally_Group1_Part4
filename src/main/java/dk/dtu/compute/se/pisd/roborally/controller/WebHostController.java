@@ -23,8 +23,8 @@ public class WebHostController {
 
         for (int i = 1; i < board.getPlayers().size(); i++)
         {
-            TextInputDialog ipdialog = new TextInputDialog("Web player IP address");
-            ipdialog.setTitle("Get player IP");
+            TextInputDialog ipdialog = new TextInputDialog("localhost");
+            ipdialog.setTitle("Web player IP address.");
             ipdialog.setHeaderText("Enter Ip for player "+(i+1)+": ");
             ipdialog.showAndWait();
             TextField s = ipdialog.getEditor();

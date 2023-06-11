@@ -157,7 +157,7 @@ public class GameController {
                 // Get the cards entered by the Web players
                 flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
                 LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
-                System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
+  //              System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
 
             }
 
@@ -245,6 +245,7 @@ public class GameController {
         if (appController.role == AppController.Roles.HOST)
         {
 
+//            flicntr.uploadFile();
    //         flicntr.setFileToUpload("WebPl2Move");
    //         flicntr.uploadFile(); //Put a test file on localhost.
    //         flicntr.setFileToUpload("Share");
@@ -253,9 +254,9 @@ public class GameController {
             for (int i = 1; i < board.getPlayersNumber(); i++)
             {
                 // Get the cards entered by the Web players
- //               flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
+                flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
                 LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
-                System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
+  //              System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
 
             }
 

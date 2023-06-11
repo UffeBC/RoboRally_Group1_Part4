@@ -184,7 +184,7 @@ public class LoadBoard
             for (PlayerTemplate playerTemplate: template.players)
             {
 
-                System.out.println(player.getName());
+  //              System.out.println(player.getName());
 
                 if (playerTemplate.name.equals(player.getName()))
                 {
