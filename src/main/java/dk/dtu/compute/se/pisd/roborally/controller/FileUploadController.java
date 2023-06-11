@@ -10,13 +10,15 @@ import java.io.*;
 @RestController
 public class FileUploadController {
 
+    private String fileToUpload="Share";
+
     @GetMapping("/upload")
     public String uploadFile(/*String uplfl*/) {
 
 
  //       String json = "Share";
         // Write the JSON content to a file
-        String filePath = "target/classes/boards/Share.json";
+        String filePath = "target/classes/boards/"+fileToUpload+".json";
   //      String filePath = "target/classes/boards/"+uplfl+".json";
         System.out.println("File to web: "+filePath);
 
@@ -74,6 +76,11 @@ public class FileUploadController {
         }
 
 
+    }
+
+    public void setFileToUpload(String flName)
+    {
+        fileToUpload=flName;
     }
 
 }

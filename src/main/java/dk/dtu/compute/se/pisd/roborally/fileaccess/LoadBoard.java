@@ -186,14 +186,18 @@ public class LoadBoard
 
                 System.out.println(player.getName());
 
-                if (playerTemplate.name.equals(player.getName())) {
+                if (playerTemplate.name.equals(player.getName()))
+                {
                     for (int j = 0; j < playerTemplate.cards.length; j++) {
                         player.getCardField(j).setCard(playerTemplate.cards[j]);
+   //                     board.getPlayer(j).getProgramField(j).setCard(playerTemplate.cards[j]);
+
 
                     }
                     for (int j = 0; j < playerTemplate.program.length; j++) {
-                        player.getProgramField(j).setCard(playerTemplate.program[j]);
-
+                       player.getProgramField(j).setCard(playerTemplate.program[j]);
+                        //                    board.getPlayer(j).getProgramField(j).setCard(playerTemplate.program[j]);
+ //                       System.out.println(player.getProgramField(j).getCard().command);
                     }
                 }
 

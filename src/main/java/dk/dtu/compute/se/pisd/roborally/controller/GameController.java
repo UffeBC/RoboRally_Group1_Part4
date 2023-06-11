@@ -142,6 +142,27 @@ public class GameController {
          */
 
         flicntr.uploadFile();
+        if (appController.role == AppController.Roles.HOST)
+        {
+/*
+            flicntr.setFileToUpload("WebPl2Move");
+            flicntr.uploadFile(); //Put a test file on localhost.
+            flicntr.setFileToUpload("Share");
+
+ */
+
+
+            for (int i = 1; i < board.getPlayersNumber(); i++)
+            {
+                // Get the cards entered by the Web players
+                flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
+                LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
+                System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
+
+            }
+
+
+        }
     }
 
     // XXX: V2
@@ -220,17 +241,28 @@ public class GameController {
 
             flicntr.uploadFile();
         }
+
         if (appController.role == AppController.Roles.HOST)
         {
-     //       flicntr.uploadFile("TestWeb"); Put a test file on localhost.
+
+   //         flicntr.setFileToUpload("WebPl2Move");
+   //         flicntr.uploadFile(); //Put a test file on localhost.
+   //         flicntr.setFileToUpload("Share");
+
+
             for (int i = 1; i < board.getPlayersNumber(); i++)
             {
                 // Get the cards entered by the Web players
-                flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
+ //               flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
                 LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
+                System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
 
             }
+
+
         }
+
+
 
         continuePrograms();
     }
@@ -469,6 +501,22 @@ public class GameController {
 
 
 //        board.setPhase(Phase.ACTIVATION);
+
+    }
+
+    public void webPlayerSendProgram()
+    {
+        flicntr.uploadFile();
+
+    }
+
+    public void webPlayerUpdateBoard()
+    {
+        flicntr.setFileToUpload("TestHostFil"); // For testing
+        flicntr.uploadFile();
+        flicntr.setFileToUpload("Share");// For testing
+
+        flicntr.downloadFile(appController.webCon.hostIp);
 
     }
 
