@@ -515,9 +515,12 @@ public class GameController {
 
     public void webPlayerUpdateBoard()
     {
+        /*
         flicntr.setFileToUpload("TestHostFil"); // For testing
         flicntr.uploadFile();
         flicntr.setFileToUpload("Share");// For testing
+
+         */
 
         flicntr.downloadFile(appController.webCon.hostIp);
 
