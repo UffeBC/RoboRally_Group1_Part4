@@ -525,7 +525,7 @@ public class GameController {
          */
 
         flicntr.downloadFile(appController.webCon.hostIp);
-        LoadBoard.loadBoard("ShareIn");
+        LoadBoard.insertInBoard(board, "ShareIn");
 
         startProgrammingPhase();
         /*
