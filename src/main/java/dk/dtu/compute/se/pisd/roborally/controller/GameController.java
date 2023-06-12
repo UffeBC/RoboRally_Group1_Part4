@@ -540,8 +540,8 @@ public class GameController {
         roboRally.createBoardView(gameController);
 
          */
-        RoboRally roboRally= new RoboRally();
-        roboRally.createBoardView(this);
+//        RoboRally roboRally= new RoboRally();
+    //    roboRally.createBoardView(this);
 
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(appController.webCon.playerNr));
