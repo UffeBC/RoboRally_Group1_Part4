@@ -141,6 +141,7 @@ public class GameController {
 
          */
 
+        LoadBoard.saveBoard(board,"Share");
         flicntr.uploadFile();
         if (appController.role == AppController.Roles.HOST)
         {
@@ -150,6 +151,7 @@ public class GameController {
             flicntr.setFileToUpload("Share");
 
  */
+
 
 
             for (int i = 1; i < board.getPlayersNumber(); i++)
