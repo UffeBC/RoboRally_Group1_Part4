@@ -526,9 +526,25 @@ public class GameController {
         flicntr.downloadFile(appController.webCon.hostIp);
         LoadBoard.loadBoard("ShareIn");
 
+        startProgrammingPhase();
+        /*
+        gameController.startProgrammingPhase();
+
+        System.out.println("AppController 3");
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Player player = board.getPlayer(i);
+            LoadBoard.loadCardAndProg(board, jsonFile, player);
+        }
+
+        roboRally.createBoardView(gameController);
+
+         */
+        //roboRally.createBoardView(gameController);
+
         board.setPhase(Phase.PROGRAMMING);
  //       board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
+
 
 
     }
