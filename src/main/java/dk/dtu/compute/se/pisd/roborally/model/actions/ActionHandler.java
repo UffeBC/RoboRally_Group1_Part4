@@ -1,10 +1,8 @@
 package dk.dtu.compute.se.pisd.roborally.model.actions;
 
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.*;
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import java.util.Objects;
 
@@ -148,6 +146,14 @@ public class ActionHandler {
             player.setCheckToken();
             if(getNumberOfCheckPoints() == token){
                 player.board.setPhase(Phase.GAME_WON);
+            }
+        }
+    }
+
+    public static void exeWall(Player player, String space, Space reSpace){
+        if(space.equals("6L")){
+            if(player.getHeading() == Heading.EAST){
+                player.setSpace(reSpace);
             }
         }
     }

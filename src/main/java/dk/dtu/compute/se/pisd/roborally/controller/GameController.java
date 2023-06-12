@@ -430,12 +430,14 @@ public class GameController {
         if (player != null && player.board == board && space != null) {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
+            String oldSpace = FindSpace.ofPlayer(player);
             if (target != null) {
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
                 hitPlayer(space, heading);
                 target.setPlayer(player);
+                ActionHandler.exeWall(player, oldSpace, space);
             }
         }
         if (player.board.getPhase()==Phase.PLAYER_INTERACTION){
