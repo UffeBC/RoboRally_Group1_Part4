@@ -509,6 +509,7 @@ public class GameController {
 
     public void webPlayerSendProgram()//
     {
+        LoadBoard.saveBoard(board,"Share");
         flicntr.uploadFile();
 
     }
