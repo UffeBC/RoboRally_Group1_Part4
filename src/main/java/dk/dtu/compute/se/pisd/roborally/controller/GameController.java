@@ -21,7 +21,6 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
@@ -45,14 +44,14 @@ import java.lang.*;
 public class GameController {
     final public AppController appController;
     final public Board board;
-    private   FileUploadController flicntr;
+    private RESTController flicntr;
 
 
     public GameController(@NotNull Board board, @NotNull AppController appController) {
         this.board = board;
         this.appController = appController;
 
-        flicntr=new FileUploadController();
+        flicntr=new RESTController();
         System.out.println("FileUploadController started");
     }
 
