@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
@@ -539,7 +540,8 @@ public class GameController {
         roboRally.createBoardView(gameController);
 
          */
-        //roboRally.createBoardView(gameController);
+        RoboRally roboRally= new RoboRally();
+        roboRally.createBoardView(this);
 
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(appController.webCon.playerNr));
