@@ -542,7 +542,7 @@ public class GameController {
         //roboRally.createBoardView(gameController);
 
         board.setPhase(Phase.PROGRAMMING);
- //       board.setCurrentPlayer(board.getPlayer(0));
+        board.setCurrentPlayer(board.getPlayer(appController.webCon.playerNr));
         board.setStep(0);
 
 
