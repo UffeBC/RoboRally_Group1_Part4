@@ -50,10 +50,10 @@ public class PlayersView extends TabPane implements ViewObserver {
         for (int i = 0; i < board.getPlayersNumber();  i++) {
             playerViews[i] = new PlayerView(gameController, board.getPlayer(i));
             this.getTabs().add(playerViews[i]);
- //           if (gameController.appController.role== AppController.Roles.HOST && i > 0)
- //                playerViews[i].setDisable(true);
- //           if (gameController.appController.role== AppController.Roles.WEBPLAYER && i != gameController.appController.webCon.getPlayerNr()-1)
- //               playerViews[i].setDisable(true);
+            if (gameController.appController.role== AppController.Roles.HOST && i > 0)
+                 playerViews[i].setDisable(true);
+            if (gameController.appController.role== AppController.Roles.WEBPLAYER && i != gameController.appController.webCon.getPlayerNr()-1)
+                playerViews[i].setDisable(true);
         }
         board.attach(this);
         update(board);
