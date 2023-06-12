@@ -187,21 +187,20 @@ public class LoadBoard
             for (PlayerTemplate playerTemplate: template.players)
             {
 
-                Player player=new Player(board,playerTemplate.color,playerTemplate.name);
-                System.out.println(player.getName());
-                board.addPlayer(player);
-                player.setSpace(board.getSpace(playerTemplate.x, playerTemplate.y));
-                player.setHeading(playerTemplate.heading);
-                player.setTokenVal(playerTemplate.checkToken);
+
+
+                board.getPlayer(playerTemplate.number).setSpace(board.getSpace(playerTemplate.x, playerTemplate.y));
+                board.getPlayer(playerTemplate.number).setHeading(playerTemplate.heading);
+                board.getPlayer(playerTemplate.number).setTokenVal(playerTemplate.checkToken);
 
 
                 //              if (playerTemplate.name.equals(player.getName())) {
                 for (int j = 0; j < playerTemplate.cards.length; j++) {
-                    player.getCardField(j).setCard(playerTemplate.cards[j]);
+                    board.getPlayer(playerTemplate.number).getCardField(j).setCard(playerTemplate.cards[j]);
 
                 }
                 for (int j = 0; j < playerTemplate.program.length; j++) {
-                    player.getProgramField(j).setCard(playerTemplate.program[j]);
+                    board.getPlayer(playerTemplate.number).getProgramField(j).setCard(playerTemplate.program[j]);
 
                 }
                 //             }
