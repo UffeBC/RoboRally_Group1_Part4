@@ -50,57 +50,7 @@ public class StartRoboRally {
     public static void main(String[] args) {
         SpringApplication.run(StartRoboRally.class, args);
         RoboRally.main(args);
-        //System.out.println(LoadBoard.loadBoard("TestSave").width);
     }
-
-//    public CommandCardField[] program(@RequestParam(value = "CommandCardField", defaultValue = "1") String[] program){
-//        return program;
-//    };
-
-    public CommandCardField[] cards;
-
-
-    public Space space;
-    public Heading heading;
-
-
-//    @SpringBootApplication
-//    @RestController
-//    public class DemoApplication {
-//        public static void main(String[] args) {
-//            SpringApplication.run(DemoApplication.class, args);
-//        }
-//        @GetMapping("/hello")
-//        public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-//            return String.format("Hello %s!", name);
-//        }
-//    }
-
-    /*@RestController
-    public class HelloController {
-
-        @GetMapping("/")
-        public String index() {
-            return "Greetings from Spring Boot!";
-        }
-
-    }*/
-
-    /*
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-
-            System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-            String[] beanNames = ctx.getBeanDefinitionNames();
-            Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
-                System.out.println(beanName);
-            }
-
-        };
-    }*/
 
 }
 

@@ -22,31 +22,31 @@
           "observers": []
         },
         {
+          "command": "RIGHT",
+          "observers": []
+        },
+        {
           "command": "FAST_FORWARD",
           "observers": []
         },
         {
-          "command": "RIGHT",
+          "command": "OPTION_LEFT_RIGHT",
           "observers": []
         },
         {
-          "command": "RIGHT",
+          "command": "FAST_FORWARD",
+          "observers": []
+        },
+        {
+          "command": "FORWARD",
+          "observers": []
+        },
+        {
+          "command": "LEFT",
           "observers": []
         },
         {
           "command": "OPTION_FWD_FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "LEFT",
-          "observers": []
-        },
-        {
-          "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "LEFT",
           "observers": []
         }
       ],
@@ -60,7 +60,10 @@
       "checkToken": 0,
       "number": 1,
       "program": [
-        null,
+        {
+          "command": "FAST_FORWARD",
+          "observers": []
+        },
         null,
         null,
         null,
@@ -68,21 +71,10 @@
       ],
       "cards": [
         {
-          "command": "OPTION_FWD_FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "OPTION_FWD_FAST_FORWARD",
-          "observers": []
-        },
-        {
           "command": "RIGHT",
           "observers": []
         },
-        {
-          "command": "RIGHT",
-          "observers": []
-        },
+        null,
         {
           "command": "OPTION_FWD_FAST_FORWARD",
           "observers": []
@@ -92,11 +84,19 @@
           "observers": []
         },
         {
-          "command": "RIGHT",
+          "command": "OPTION_LEFT_RIGHT",
           "observers": []
         },
         {
-          "command": "RIGHT",
+          "command": "FORWARD",
+          "observers": []
+        },
+        {
+          "command": "FAST_FORWARD",
+          "observers": []
+        },
+        {
+          "command": "FORWARD",
           "observers": []
         }
       ],
