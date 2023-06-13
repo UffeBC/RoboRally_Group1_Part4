@@ -9,6 +9,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Template used for serialization and deserialization
+ */
 public class PlayerTemplate {
 
     public String name;

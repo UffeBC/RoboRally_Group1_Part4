@@ -32,7 +32,7 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * Modified by Torben Rasmussen
  */
 public class BoardTemplate {
 

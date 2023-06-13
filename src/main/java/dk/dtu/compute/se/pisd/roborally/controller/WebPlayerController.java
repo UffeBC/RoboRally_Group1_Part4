@@ -1,4 +1,8 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
+/**
+ * Used when the user runs "Join a Web Game"
+ * @author: Torben Rasmussen
+ */
 
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextField;

@@ -49,7 +49,11 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.*;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * Modified by Torben Rasmussen
+ * Roles added.
+ * Role LOCAL: when the web is not used
+ * Role HOST: when the web is used and the user is the host
+ * Role WEBPLAYER: when the web is used and the user is ta web player
  */
 public class AppController implements Observer {
 
@@ -92,7 +96,11 @@ public class AppController implements Observer {
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
-        //
+        /**
+         * This sets the global value of map to the selected String.
+         * (used for finding out what space a player is on in FindSpace)
+         * @Author UffeBC
+         */
         ChoiceDialog<String> map = new ChoiceDialog<>("GoldenStripe", // default
                 "GoldenStripe","RingOfDeath", "WhirlWind", "Testing");
         map.setTitle("Map");
@@ -146,83 +154,52 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Updated by Torben Rasmussen
+     */
     public void saveGame()
     {
-        // XXX needs to be implemented eventually
-        /*
-        File fl = new File("Game1"); //TSR
-
-        try {
-            if (fl.createNewFile()) {
-                System.out.println("File created: " + fl.getName());
-            } else {
-                System.out.println("File already exist");
-            }
-        } catch (IOException var3) {
-        }
-
-         */
- //       SaveGame sg=new SaveGame(gameController.board);
 
         String jsonFile=LoadBoard.jsonFileToSave();
 
         LoadBoard.saveBoard(gameController.board,jsonFile);
 
-
-
     }
 
+    /**
+     * Updated by Torben Rasmussen
+     */
     public void loadGame() {
 
 
         int tileLength = 15; // Length including side board is +3
         int tileHeight = 12/*GoldStripe.getHeightOfBoard()*/;
 
-/*
-        Board board = new Board(tileLength,tileHeight);
-        gameController = new GameController(board,this);
 
-        int no = 2;
-        for (int i = 0; i < no; i++) {
-            Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
-            board.addPlayer(player);
-            player.setSpace(board.getSpace(i % board.width, i));
-        }
-
-
-
-        Value.amountOfPlayers = no;
-
-*/
         String jsonFile=LoadBoard.jsonFile();
 
 
-      Board board= LoadBoard.loadBoard(jsonFile);
+        Board board= LoadBoard.loadBoard(jsonFile);
 
-        System.out.println("AppController 1");
+
         gameController = new GameController(board,this);
 
-        System.out.println("AppController 2");
 
         gameController.startProgrammingPhase();
 
-        System.out.println("AppController 3");
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
             LoadBoard.loadCardAndProg(board, jsonFile, player);
         }
 
         roboRally.createBoardView(gameController);
-/*
-        if (gameController == null) {
-            newGame();
-        }
-
- */
-
 
     }
 
+    /**
+     * Used when joining a Web Game
+     * @Author: torben Rasmussen
+     */
     public void joinWebGame()
     {
         webCon = new WebPlayerController();
@@ -248,6 +225,10 @@ public class AppController implements Observer {
 
     }
 
+    /**
+     * Used when joining a Web Game
+     * @Author: torben Rasmussen
+     */
     public void hostWebGame()
     {
 

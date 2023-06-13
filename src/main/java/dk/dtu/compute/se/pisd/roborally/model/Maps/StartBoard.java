@@ -4,6 +4,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This is the class which controls the StartingBoard Map using the array below
+ * as well as some references to height and width.
+ * @Author UffeBC
+ */
 public class StartBoard extends TileCreator {
 
     public StartBoard(@NotNull Space space) {super(space);}

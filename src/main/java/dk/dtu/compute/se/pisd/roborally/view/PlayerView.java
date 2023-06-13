@@ -37,7 +37,8 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * Modified by Torben Rasmussen and Anders Jensen
+ * This shows that the player can see, so buttons and which cards is displayed.
  */
 public class PlayerView extends Tab implements ViewObserver {
 
@@ -218,11 +219,6 @@ public class PlayerView extends Tab implements ViewObserver {
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-                    //player.board.setCurrentPlayer(player.board.getPlayer(player.board.getPlayersNumber()-1));
-                    // TODO Assignment P3: these buttons should be shown only when there is
-                    //      an interactive command card, and the buttons should represent
-                    //      the player's choices of the interactive command card. The
-                    //      following is just a mockup showing two options
                     if(player.getProgramField(player.board.getStep()).getCard().command == Command.OPTION_LEFT_RIGHT) {
                         Button optionButton = new Button("turn Right");
                         optionButton.setOnAction(e -> gameController.turnRight(player));
@@ -249,9 +245,6 @@ public class PlayerView extends Tab implements ViewObserver {
                         optionButton.setDisable(false);
                         playerInteractionPanel.getChildren().add(optionButton);
                     }
-
-
-
                 }
             }
         }

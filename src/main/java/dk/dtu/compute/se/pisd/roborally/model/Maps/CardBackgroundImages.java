@@ -2,6 +2,10 @@ package dk.dtu.compute.se.pisd.roborally.model.Maps;
 
 import dk.dtu.compute.se.pisd.roborally.view.CardFieldView;
 
+/**
+ * @deprecated
+ * @author UffeBC
+ */
 public class CardBackgroundImages {
 
 //    public static void setCardImage(CardFieldView target) {
