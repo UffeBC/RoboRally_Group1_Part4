@@ -46,6 +46,8 @@ import java.util.Optional;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ *
+ * Modified by Torben Rasmussen
  */
 public class LoadBoard
 {
@@ -71,7 +73,7 @@ public class LoadBoard
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
-  //      InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + flToLoad[0]);
+
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
             return new Board(8,8);
@@ -112,7 +114,7 @@ public class LoadBoard
                 player.setTokenVal(playerTemplate.checkToken);
 
 
-  //              if (playerTemplate.name.equals(player.getName())) {
+
                     for (int j = 0; j < playerTemplate.cards.length; j++) {
                         player.getCardField(j).setCard(playerTemplate.cards[j]);
 
@@ -121,13 +123,13 @@ public class LoadBoard
                         player.getProgramField(j).setCard(playerTemplate.program[j]);
 
                     }
-   //             }
+
 
 
 
             }
 
-//            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
+
             Value.map=template.val.map;
             Value.amountOfPlayers=template.val.amountOfPlayers;
             Value.MovePlayer= template.val.MovePlayer;
@@ -204,7 +206,7 @@ public class LoadBoard
                 board.getPlayer(playerTemplate.number).setTokenVal(playerTemplate.checkToken);
 
 
-                //              if (playerTemplate.name.equals(player.getName())) {
+
                 for (int j = 0; j < playerTemplate.cards.length; j++) {
                     board.getPlayer(playerTemplate.number).getCardField(j).setCard(playerTemplate.cards[j]);
 
@@ -213,18 +215,13 @@ public class LoadBoard
                     board.getPlayer(playerTemplate.number).getProgramField(j).setCard(playerTemplate.program[j]);
 
                 }
-                //             }
+
 
 
 
             }
 
-//            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
-//            Value.map=template.val.map;
-//            Value.amountOfPlayers=template.val.amountOfPlayers;
-//            Value.MovePlayer= template.val.MovePlayer;
-//            Value.selectedPLayer=template.val.selectedPLayer;
-//            Value.clickCounter= template.val.clickCounter;
+
 
             board.setCurrentPlayer(board.getPlayer(template.val.selectedPLayer));
             System.out.println("Current Player loaded: "+board.getCurrentPlayer().getName());
@@ -248,6 +245,13 @@ public class LoadBoard
 
     }
 
+    /**
+     * Loads a json file containing a board. The data are deserialized for a specific player
+     * and inserted in the existing board.
+     * @param board: existing board
+     * @param boardname: json file to be imported
+     * @param player: The player which card is updated.
+     */
 
     public static void loadCardAndProg(Board board, String boardname, Player player)
     {
@@ -282,20 +286,19 @@ public class LoadBoard
             for (PlayerTemplate playerTemplate: template.players)
             {
 
-  //              System.out.println(player.getName());
+
 
                 if (playerTemplate.name.equals(player.getName()))
                 {
                     for (int j = 0; j < playerTemplate.cards.length; j++) {
                         player.getCardField(j).setCard(playerTemplate.cards[j]);
-   //                     board.getPlayer(j).getProgramField(j).setCard(playerTemplate.cards[j]);
+
 
 
                     }
                     for (int j = 0; j < playerTemplate.program.length; j++) {
                        player.getProgramField(j).setCard(playerTemplate.program[j]);
-                        //                    board.getPlayer(j).getProgramField(j).setCard(playerTemplate.program[j]);
- //                       System.out.println(player.getProgramField(j).getCard().command);
+
                     }
                 }
 
@@ -316,9 +319,14 @@ public class LoadBoard
             }
         }
 
-     //   return null;
+
     }
 
+    /**
+     * Serialize and save the existing board to a json file
+     * @param board: Existing board
+     * @param name: Name of the json file
+     */
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
@@ -341,7 +349,7 @@ public class LoadBoard
                     spaceTemplate.walls.addAll(space.getWalls());
                     template.spaces.add(spaceTemplate);
 
-//                    System.out.println(i+j);
+
                }
             }
 
@@ -369,7 +377,6 @@ public class LoadBoard
                     if (player.getCardField(j) != null) {
                         playerTemplate.cards[j]=player.getCardField(j).getCard();
 
- //                       System.out.println(playerTemplate.cards[j].getName()+ " "+player.getCardField(j).getCard().getName());
                     }
 
                 }
@@ -377,7 +384,7 @@ public class LoadBoard
 
             playerTemplate.program = new CommandCard[player.getProgram().length];
 
- //           System.out.println(player.getCards().length);
+
 
             if (player.getProgram().length > 0)
             {
@@ -386,7 +393,6 @@ public class LoadBoard
                     if (player.getProgramField(j) != null) {
                         playerTemplate.program[j]=player.getProgramField(j).getCard();
 
-                        //                       System.out.println(playerTemplate.cards[j].getName()+ " "+player.getCardField(j).getCard().getName());
                     }
 
                 }
@@ -445,7 +451,6 @@ public class LoadBoard
 
             writer = gson.newJsonWriter(fileWriter);
 
-  //          gson.toJson(valueTemplate, valueTemplate.getClass(), writer);
             gson.toJson(template, template.getClass(), writer);
 
             writer.close();
@@ -466,37 +471,41 @@ public class LoadBoard
 
     }
 
+    /**
+     * Dialog with the user to get the json file name
+     * @return: json file name
+     */
     public static String jsonFile()
     {
         File fl = new File("target/classes/boards/");
 
-//        System.out.println("Absolute path: "+fl.getAbsolutePath());
-//        System.out.println("Files in target: "+fl.listFiles()[0]);
+
         String[] filesInDir=fl.list();
 
-//        System.out.println("Load board");
+
         ChoiceDialog<String> dialog = new ChoiceDialog<String>(filesInDir[1],filesInDir);
         dialog.setTitle("Load a game");
         dialog.setHeaderText("Select file to load");
         Optional<String> filernr = dialog.showAndWait();
-//        System.out.println("Filenr: "+ filernr);
+
 
         String[] st = filernr.toString().split("\\[");
         String[] stJs = st[1].split("]");
-//        System.out.println("File to load: x"+ stJs[0]+"x");
         String[] flJs=stJs[0].split("\\.");
 
-//        System.out.println(flJs[0]);
 
         return flJs[0];
 
     }
 
+    /**
+     * Dialog with the user to get the json file name for the file to save
+     * @return: json file name
+     */
     public static String jsonFileToSave() {
         File fl = new File("target/classes/boards/");
 
-//        System.out.println("Absolute path: "+fl.getAbsolutePath());
-//        System.out.println("Files in target: "+fl.listFiles()[0]);
+
         String[] filesInDir = fl.list();
 
         for (int f = 0; f < filesInDir.length; f++) {
@@ -504,7 +513,7 @@ public class LoadBoard
 
         }
 
-//        System.out.println("Load board");
+
         TextInputDialog dialog = new TextInputDialog("TestSave");
         dialog.setTitle("Save to file");
         dialog.setHeaderText("Enter file name: ");

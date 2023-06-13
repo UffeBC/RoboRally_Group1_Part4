@@ -1,5 +1,10 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+/**
+ * Used when the user runs "Host a Web Game"
+ *  * @author: Torben Rasmussen
+ */
+
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextField;
@@ -15,7 +20,10 @@ public class WebHostController {
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-
+    /**
+     * Dialog to get the Web players IP address
+     * @param board: Active board
+     */
 
     public WebHostController(Board board)
     {

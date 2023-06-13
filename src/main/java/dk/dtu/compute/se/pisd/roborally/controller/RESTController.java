@@ -6,6 +6,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 
+/**
+ *
+ * @Author: Aleksander Sønder.
+ */
 @RestController
 public class RESTController {
 
