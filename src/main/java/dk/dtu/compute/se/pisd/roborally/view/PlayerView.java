@@ -107,6 +107,7 @@ public class PlayerView extends Tab implements ViewObserver {
         }
         else
         {
+            // Buttons for the Web player
             finishButton = new Button("Send programme to the host");
             finishButton.setOnAction(e -> gameController.webPlayerSendProgram());
 

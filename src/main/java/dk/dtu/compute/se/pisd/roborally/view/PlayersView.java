@@ -32,7 +32,7 @@ import javafx.scene.control.TabPane;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * Modified Torben Rasmussen
  */
 public class PlayersView extends TabPane implements ViewObserver {
 
@@ -50,6 +50,7 @@ public class PlayersView extends TabPane implements ViewObserver {
         for (int i = 0; i < board.getPlayersNumber();  i++) {
             playerViews[i] = new PlayerView(gameController, board.getPlayer(i));
             this.getTabs().add(playerViews[i]);
+            // Only own player is visible
             if (gameController.appController.role== AppController.Roles.HOST && i > 0)
                  playerViews[i].setDisable(true);
             if (gameController.appController.role== AppController.Roles.WEBPLAYER && i != gameController.appController.webCon.getPlayerNr()-1)
