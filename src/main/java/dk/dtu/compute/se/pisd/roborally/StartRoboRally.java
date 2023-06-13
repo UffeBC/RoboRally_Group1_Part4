@@ -42,8 +42,8 @@ import java.util.Objects;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-@SpringBootApplication
 
+@SpringBootApplication
 public class StartRoboRally {
 
 

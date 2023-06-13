@@ -1,14 +1,13 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 
 @RestController
-public class FileUploadController {
+public class RESTController {
 
     private String fileToUpload="Share";
 
