@@ -16,7 +16,6 @@ import java.util.Objects;
 public class ActionHandler {
     public static void exePushPanel(String space, Player player, int push) {
 
-
         if ((space.equals("0B")&&push%2==0)||(space.equals("0A")&&push%2!=0))
             player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
         if ((space.equals("1B")&&push%2==0)||(space.equals("1A")&&push%2!=0))
@@ -97,6 +96,9 @@ public class ActionHandler {
 
     }
 
+    /**
+     * @deprecated
+     */
     public static void exeReboot(Player currentplayer) {
 
 //        currentplayer.setSpace();
