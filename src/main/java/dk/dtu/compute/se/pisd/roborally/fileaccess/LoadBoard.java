@@ -56,6 +56,11 @@ public class LoadBoard
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
+    /**
+     * Loads a json file containing a board. The data are deserialized and a board is returned
+     * @param boardname: Name of the json file to be deserialized.
+     * @return a Board
+     */
     public static Board loadBoard(String boardname)
     {
         if (boardname == null) {
@@ -151,6 +156,11 @@ public class LoadBoard
         return null;
     }
 
+    /**
+     * Loads a json file containing a board. The data are deserialized and inserted in the existing board
+     * @param board pointer to the existing Board
+     * @param boardname: Name of the file to loaded
+     */
     public static void insertInBoard(Board board, String boardname)
     {
 
