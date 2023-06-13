@@ -5,6 +5,10 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import java.util.Objects;
 
+/**
+ * This Class has methods to find a players location based on which map is used.
+ * @Author UffeBC
+ */
 public class FindSpace {
     public static String ofPlayer(Player player) {
         int x = player.getSpace().x;

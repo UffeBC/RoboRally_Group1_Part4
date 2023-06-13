@@ -4,6 +4,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This is the class which controls the RingOfDeath Map using the array below
+ * as well as some references to height, width and amount of checkpoints.
+ * @Author UffeBC
+ */
 public class RingOfDeath extends TileCreator {
     private RingOfDeath(@NotNull Space space) { super(space); }
 

@@ -6,32 +6,13 @@ import dk.dtu.compute.se.pisd.roborally.model.Maps.*;
 
 import java.util.Objects;
 
+/**
+ * This class has methods for movements of conveyor-belts and push panels,
+ * as well as checkpoint tokens required to win the game.
+ * @Author Anders and UffeBC
+ */
 public class ActionHandler {
     public static void exePushPanel(String space, Player player, int push) {
-        //White 2-4
-//        if (push==1 || push==3){
-//            if (space.equals("0A"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
-//            if (space.equals("1A"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
-//            if (space.equals("2A"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
-//            if (space.equals("3A"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
-//        }
-//
-//        if (push==0||push==2||push==4){
-//            //Grey 1-3-5
-//            if (space.equals("0B"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
-//            if (space.equals("1B"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x-1,player.getSpace().y)); //left
-//            if (space.equals("2B"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y-1)); //up
-//            if (space.equals("3B"))
-//                player.setSpace(player.board.getSpace(player.getSpace().x+1,player.getSpace().y)); //right
-//        }
-
 
         if ((space.equals("0B")&&push%2==0)||(space.equals("0A")&&push%2!=0))
             player.setSpace(player.board.getSpace(player.getSpace().x,player.getSpace().y+1)); //down
@@ -113,6 +94,9 @@ public class ActionHandler {
 
     }
 
+    /**
+     * @deprecated
+     */
     public static void exeReboot(Player currentplayer) {
 
 //        currentplayer.setSpace();

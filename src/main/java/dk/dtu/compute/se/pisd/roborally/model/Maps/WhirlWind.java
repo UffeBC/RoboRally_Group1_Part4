@@ -4,6 +4,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This is the class which controls the WhirlWind Map using the array below
+ * as well as some references to height, width and amount of checkpoints.
+ * @Author UffeBC
+ */
 public class WhirlWind extends TileCreator {
     public WhirlWind(@NotNull Space space) { super(space); }
 
