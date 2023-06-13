@@ -478,6 +478,16 @@ public class GameController {
             return false;
         }
     }
+
+    /**
+     * This method takes a player, with the heading and checks the neighboring space
+     * to see if a player is there and then moves them one space forward in the first
+     * players heading. called recursive if there are more than two players after each other
+     * with moveForward command.
+     * @author Anders Jensen
+     * @param space the space the player is occupying.
+     * @param heading the heading which the player is moving
+     */
     public void hitPlayer(Space space, Heading heading){
         Space target = board.getNeighbour(space, heading);
         if (target.getPlayer() != null ){
