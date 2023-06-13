@@ -6,19 +6,23 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 
+/**
+ * RestController is used for making restful web services with the help of the @RestController annotation.
+ * It is used at the class level and allows the class to handle the requests made by the client.
+ * */
+
 @RestController
 public class RESTController {
 
     private String fileToUpload="Share";
 
+    /**
+     * GetMapping("/upload") takes the content from the json file and publish it to localhost:8080/upload
+     * */
     @GetMapping("/upload")
-    public String uploadFile(/*String uplfl*/) {
+    public String uploadFile() {
 
-
- //       String json = "Share";
-        // Write the JSON content to a file
         String filePath = "target/classes/boards/"+fileToUpload+".json";
-  //      String filePath = "target/classes/boards/"+uplfl+".json";
         System.out.println("File to web: "+filePath);
 
         try {
@@ -31,26 +35,21 @@ public class RESTController {
             }
 
             bufferedReader.close();
-            //
-            ;
-//            bufferedWriter.write(json);
-//            bufferedWriter.close();
 
-            return x.toString();//"File uploaded successfully!";
+            return x.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return "Failed to upload the file.";
         }
     }
 
+    /**
+     * GetMapping("/uploadt") takes the specific json (game) from /uploadt and updates the specific json file
+     * */
 
-
-    //
     @GetMapping(value = "/uploadt")
     public String downloadFile(String dlHost)
     {
-
-      //  String uri = "http://localhost:8080/upload";
         String uri = "http://"+dlHost+":8080/upload";
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(uri, String.class);
@@ -70,11 +69,7 @@ public class RESTController {
             return result;
         }catch (IOException e) {
             return "Failed to download the file from"+filePath+".";
- //           e.printStackTrace();
-
         }
-
-
     }
 
     public void setFileToUpload(String flName)
