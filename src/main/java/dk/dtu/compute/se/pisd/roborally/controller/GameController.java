@@ -134,24 +134,14 @@ public class GameController {
             }
         }
 
-        /*
-        long nt = currentTimeMillis()+1000;
-        long ct = currentTimeMillis();
-        while(nt>=ct){ct = currentTimeMillis();}
-
+        /**
+         * Modified by Torben Rasmussen
          */
 
         LoadBoard.saveBoard(board,"Share");
         flicntr.uploadFile();
         if (appController.role == AppController.Roles.HOST)
         {
-/*
-            flicntr.setFileToUpload("WebPl2Move");
-            flicntr.uploadFile(); //Put a test file on localhost.
-            flicntr.setFileToUpload("Share");
-
- */
-
 
 
             for (int i = 1; i < board.getPlayersNumber(); i++)
@@ -159,7 +149,6 @@ public class GameController {
                 // Get the cards entered by the Web players
                 flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
                 LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
-  //              System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
 
             }
 
@@ -179,6 +168,7 @@ public class GameController {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
+        // the Web player only uses 1 current player
         if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
            board.setCurrentPlayer(board.getPlayer(0));
         else board.setCurrentPlayer(board.getPlayer(appController.webCon.getPlayerNr()));
@@ -247,18 +237,11 @@ public class GameController {
         if (appController.role == AppController.Roles.HOST)
         {
 
-//            flicntr.uploadFile();
-   //         flicntr.setFileToUpload("WebPl2Move");
-   //         flicntr.uploadFile(); //Put a test file on localhost.
-   //         flicntr.setFileToUpload("Share");
-
-
             for (int i = 1; i < board.getPlayersNumber(); i++)
             {
                 // Get the cards entered by the Web players
                 flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
                 LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
-  //              System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
 
             }
 
@@ -324,9 +307,7 @@ public class GameController {
                             makeProgramFieldsVisible(step);
                             board.setStep(step);
                             board.setCurrentPlayer(board.getPlayer(0));
-//                        for (int i = 0; i < Value.amountOfPlayers; i++) {
-//                            ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
-//                        }
+
                         } else {
 
                             for (int i = 0; i < Value.amountOfPlayers; i++) {
@@ -352,19 +333,6 @@ public class GameController {
 
                     } else
                     {
-/*
-                        for (int i = 0; i < Value.amountOfPlayers; i++)
-                        {
-                            ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
-                            ActionHandler.exeGiveToken(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
-                            if (board.getPhase() == Phase.GAME_WON) {
-                                board.setCurrentPlayer(board.getPlayer(i));
-                                return;
-
-                            }
-                        }
-
- */
                         startProgrammingPhase();
                     }
 
@@ -535,6 +503,10 @@ public class GameController {
 
     }
 
+    /**
+     * Send boards to the web for the host to collect.
+     * Author Torben Rasmussen
+     */
     public void webPlayerSendProgram()//
     {
         LoadBoard.saveBoard(board,"Share");
@@ -542,41 +514,20 @@ public class GameController {
 
     }
 
+    /**
+     * Get Web players board from the web and insert the cards sent into the existing board
+     * Author Torben Rasmussen
+     */
     public void webPlayerUpdateBoard()
     {
-        /*
-        flicntr.setFileToUpload("TestHostFil"); // For testing
-        flicntr.uploadFile();
-        flicntr.setFileToUpload("Share");// For testing
-
-         */
-
         flicntr.downloadFile(appController.webCon.hostIp);
         LoadBoard.insertInBoard(board, "ShareIn");
 
         startProgrammingPhase();
-        /*
-        gameController.startProgrammingPhase();
-
-        System.out.println("AppController 3");
-        for (int i = 0; i < board.getPlayersNumber(); i++) {
-            Player player = board.getPlayer(i);
-            LoadBoard.loadCardAndProg(board, jsonFile, player);
-        }
-
-        roboRally.createBoardView(gameController);
-
-         */
-//        RoboRally roboRally= new RoboRally();
-    //    roboRally.createBoardView(this);
 
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(appController.webCon.playerNr));
         board.setStep(0);
-
-
-
     }
-
 
 }
