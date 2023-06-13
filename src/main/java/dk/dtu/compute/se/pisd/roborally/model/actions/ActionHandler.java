@@ -129,6 +129,7 @@ public class ActionHandler {
     }
 
     private static int getNumberOfCheckPoints(){
+        // Get the number of checkpoints for each of our 3 maps and returns it.
         if (Objects.equals(Value.map, "GoldenStripe"))
             return GoldStripe.nrCheckPoints;
         else if (Objects.equals(Value.map, "WhirlWind"))
@@ -137,8 +138,16 @@ public class ActionHandler {
             return RingOfDeath.nrCheckPoints;
         return 0;
     }
-    public static void exeGiveToken(String space, Player player) {
 
+    /**
+     * Method that gives checkpoint Tokens then a robot lands on them, is called in the gameController at the
+     * of each programming phase.
+     * @author Anders Jensen
+     * @param space The Space in the course array, which is defined as a String here to match the one we find
+     *              in the arrays for each course
+     * @param player The Player which lands on the checkpoint field.
+     */
+    public static void exeGiveToken(String space, Player player) {
         int token = player.getCheckToken() + 1;
         String nextCheckPoint = Integer.toString(token) +"N";
 
@@ -149,6 +158,17 @@ public class ActionHandler {
             }
         }
     }
+
+
+    /**
+     * Checks if the space the player is on contains a wall in the heading the player are, if true, then sets the player
+     * back to the spot he tried moving from. used in the moveForward method in gameController
+     * @author Anders Jensen, Alexander Sønder
+     * @param player The players turn to moveForward
+     * @param space The Space in the course array, which is defined as a String here to match the one we find
+     *      *              in the arrays for each course, is the same space as reSpace
+     * @param reSpace The space the player was on before the move in the method moveForward
+     */
     public static void exeWall(Player player, String space, Space reSpace){
         if(space.equals("6L") || space.equals("5F")){
             if(player.getHeading() == Heading.EAST){
@@ -171,6 +191,15 @@ public class ActionHandler {
             }
         }
     }
+    /**
+     * Checks if the space you move to are the field which contains a wall, and if the heading you came in to the space
+     * with are true, then sets the player back to the old space.
+     * @author Anders Jensen, Alexander Sønder
+     * @param player The players turn to moveForward
+     * @param space The Space in the course array, which is defined as a String here to match the one we find
+     *      *              in the arrays for each course, here it is the space the player is moved to.
+     * @param reSpace The space the player was on before the move in the method moveForward
+     */
     public static void exWall(Player player, String space, Space reSpace){
         if(space.equals("6L") || space.equals("5F")){
             if(player.getHeading() == Heading.WEST){
