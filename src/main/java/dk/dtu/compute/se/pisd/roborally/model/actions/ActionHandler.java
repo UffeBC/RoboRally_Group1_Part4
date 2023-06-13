@@ -8,6 +8,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import java.util.Objects;
 
+/**
+ * This class has methods for movements of conveyor-belts and push panels,
+ * as well as checkpoint tokens required to win the game.
+ * @Author Anders and UffeBC
+ */
 public class ActionHandler {
     public static void exePushPanel(String space, Player player, int push) {
         //White 2-4
