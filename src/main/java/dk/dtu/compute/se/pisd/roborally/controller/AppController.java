@@ -92,7 +92,11 @@ public class AppController implements Observer {
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
-        //
+        /**
+         * This sets the global value of map to the selected String.
+         * (used for finding out what space a player is on in FindSpace)
+         * @Author UffeBC
+         */
         ChoiceDialog<String> map = new ChoiceDialog<>("GoldenStripe", // default
                 "GoldenStripe","RingOfDeath", "WhirlWind", "Testing");
         map.setTitle("Map");

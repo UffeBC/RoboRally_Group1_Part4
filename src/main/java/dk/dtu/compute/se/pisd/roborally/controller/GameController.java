@@ -425,6 +425,11 @@ public class GameController {
     }
 
     // TODO: V2
+
+    /**
+     * Moves the player 1 forward
+     * @Author UffeBC
+     */
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
         if (player != null && player.board == board && space != null) {
@@ -444,12 +449,21 @@ public class GameController {
     }
 
     // TODO: V2
+    /**
+     * Moves the player 1 forward twice
+     * @Author UffeBC
+     */
     public void fastForward(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
     }
 
     // TODO: V2
+
+    /**
+     * changes the players heading, (turning left)
+     * @Author UffeBC
+     */
     public void turnRight(@NotNull Player player) {
         if (player != null && player.board == board) {
             player.setHeading(player.getHeading().next());
@@ -459,6 +473,11 @@ public class GameController {
     }
 
     // TODO: V2
+
+    /**
+     * changes the players heading, (turning left)
+     * @Author UffeBC
+     */
     public void turnLeft(@NotNull Player player) {
         if (player != null && player.board == board) {
             player.setHeading(player.getHeading().prev());
@@ -492,6 +511,7 @@ public class GameController {
     /**
      * A method called when no corresponding controller operation is implemented yet. This
      * should eventually be removed.
+     * @deprecated
      */
     public void notImplemented() {
         // XXX just for now to indicate that the actual method is not yet implemented
@@ -501,8 +521,6 @@ public class GameController {
 
 //        board.setCurrentPlayer(player);
         board.setPhase(Phase.PLAYER_INTERACTION);
-
-
 //        board.setPhase(Phase.ACTIVATION);
 
     }
