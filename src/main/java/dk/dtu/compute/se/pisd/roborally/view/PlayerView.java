@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.AppController;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.geometry.Pos;
@@ -78,6 +79,7 @@ public class PlayerView extends Tab implements ViewObserver {
         programPane.setVgap(2.0);
         programPane.setHgap(2.0);
         programCardViews = new CardFieldView[Player.NO_REGISTERS];
+
         for (int i = 0; i < Player.NO_REGISTERS; i++) {
             CommandCardField cardField = player.getProgramField(i);
             if (cardField != null) {
@@ -90,14 +92,30 @@ public class PlayerView extends Tab implements ViewObserver {
         //      players, but on the PlayersView (view for all players). This should be
         //      refactored.
 
-        finishButton = new Button("Finish Programming");
-        finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
+        if (gameController.appController.role != AppController.Roles.WEBPLAYER) {
+            finishButton = new Button("Finish Programming");
+            finishButton.setOnAction(e -> gameController.finishProgrammingPhase());
 
-        executeButton = new Button("Execute Program");
-        executeButton.setOnAction( e-> gameController.executePrograms());
+            executeButton = new Button("Execute Program");
+            executeButton.setOnAction(e -> gameController.executePrograms());
 
-        stepButton = new Button("Execute Current Register");
-        stepButton.setOnAction( e-> gameController.executeStep());
+            stepButton = new Button("Execute Current Register");
+            stepButton.setOnAction(e -> gameController.executeStep());
+
+
+        }
+        else
+        {
+            finishButton = new Button("Send programme to the host");
+            finishButton.setOnAction(e -> gameController.webPlayerSendProgram());
+
+            executeButton = new Button("Update board");
+            executeButton.setOnAction(e -> gameController.webPlayerUpdateBoard());
+
+            stepButton = new Button("Execute Current Register");
+            stepButton.setOnAction(e -> gameController.executeStep());
+
+        }
 
         buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
@@ -174,7 +192,8 @@ public class PlayerView extends Tab implements ViewObserver {
 
                     case PROGRAMMING:
                         finishButton.setDisable(false);
-                        executeButton.setDisable(true);
+                        if (gameController.appController.role != AppController.Roles.WEBPLAYER)
+                             executeButton.setDisable(true);
                         stepButton.setDisable(true);
                         break;
 

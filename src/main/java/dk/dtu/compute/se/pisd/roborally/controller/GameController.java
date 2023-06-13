@@ -25,20 +25,14 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.FindSpace;
-import dk.dtu.compute.se.pisd.roborally.model.Maps.GoldStripe;
 import dk.dtu.compute.se.pisd.roborally.model.actions.ActionHandler;
-import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.util.Objects;
 import java.util.Optional;
 
 import java.lang.*;
-
-import static java.lang.System.currentTimeMillis;
 
 
 /**
@@ -50,14 +44,14 @@ import static java.lang.System.currentTimeMillis;
 public class GameController {
     final public AppController appController;
     final public Board board;
-    private   FileUploadController flicntr;
+    private RESTController flicntr;
 
 
     public GameController(@NotNull Board board, @NotNull AppController appController) {
         this.board = board;
         this.appController = appController;
 
-        flicntr=new FileUploadController();
+        flicntr=new RESTController();
         System.out.println("FileUploadController started");
     }
 
@@ -78,10 +72,14 @@ public class GameController {
 
         if (space != null && space.board == board) {
             Player currentPlayer = board.getCurrentPlayer();
-            if (currentPlayer != null && space.getPlayer() == null) {
+            if (currentPlayer != null && space.getPlayer() == null)
+            {
                 currentPlayer.setSpace(space);
-                int playerNumber = (board.getPlayerNumber(currentPlayer) + 1) % board.getPlayersNumber();
-                board.setCurrentPlayer(board.getPlayer(playerNumber));
+                if (appController.role != AppController.Roles.WEBPLAYER)
+                {
+                    int playerNumber = (board.getPlayerNumber(currentPlayer) + 1) % board.getPlayersNumber();
+                    board.setCurrentPlayer(board.getPlayer(playerNumber));
+                }
             }
         }
 
@@ -89,13 +87,17 @@ public class GameController {
     }
 
     // XXX: V2
-    public void startProgrammingPhase() {
-        board.setPhase(Phase.PROGRAMMING);
-        board.setCurrentPlayer(board.getPlayer(0));
-        board.setStep(0);
+    public void startProgrammingPhase()
+    {
+        if (appController.role== AppController.Roles.WEBPLAYER)
+        {
+            flicntr.downloadFile(appController.webCon.hostIp);
 
-        for (int i = 0; i < board.getPlayersNumber(); i++) {
-            Player player = board.getPlayer(i);
+            board.setPhase(Phase.PROGRAMMING);
+            board.setCurrentPlayer(board.getPlayer(appController.webCon.getPlayerNr()));
+            board.setStep(0);
+
+            Player player = board.getPlayer(appController.webCon.getPlayerNr());
             if (player != null) {
                 for (int j = 0; j < Player.NO_REGISTERS; j++) {
                     CommandCardField field = player.getProgramField(j);
@@ -108,8 +110,30 @@ public class GameController {
                     field.setVisible(true);
                 }
             }
+
         }
-        flicntr.greeting();
+        else {
+            board.setPhase(Phase.PROGRAMMING);
+            board.setCurrentPlayer(board.getPlayer(0));
+            board.setStep(0);
+
+            for (int i = 0; i < board.getPlayersNumber(); i++) {
+                Player player = board.getPlayer(i);
+                if (player != null) {
+                    for (int j = 0; j < Player.NO_REGISTERS; j++) {
+                        CommandCardField field = player.getProgramField(j);
+                        field.setCard(null);
+                        field.setVisible(true);
+                    }
+                    for (int j = 0; j < Player.NO_CARDS; j++) {
+                        CommandCardField field = player.getCardField(j);
+                        field.setCard(generateRandomCommandCard());
+                        field.setVisible(true);
+                    }
+                }
+            }
+        }
+
         /*
         long nt = currentTimeMillis()+1000;
         long ct = currentTimeMillis();
@@ -117,7 +141,30 @@ public class GameController {
 
          */
 
+        LoadBoard.saveBoard(board,"Share");
         flicntr.uploadFile();
+        if (appController.role == AppController.Roles.HOST)
+        {
+/*
+            flicntr.setFileToUpload("WebPl2Move");
+            flicntr.uploadFile(); //Put a test file on localhost.
+            flicntr.setFileToUpload("Share");
+
+ */
+
+
+
+            for (int i = 1; i < board.getPlayersNumber(); i++)
+            {
+                // Get the cards entered by the Web players
+                flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
+                LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
+  //              System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
+
+            }
+
+
+        }
     }
 
     // XXX: V2
@@ -132,15 +179,27 @@ public class GameController {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
-        board.setCurrentPlayer(board.getPlayer(0));
+        if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
+           board.setCurrentPlayer(board.getPlayer(0));
+        else board.setCurrentPlayer(board.getPlayer(appController.webCon.getPlayerNr()));
         board.setStep(0);
     }
 
     // XXX: V2
     private void makeProgramFieldsVisible(int register) {
-        if (register >= 0 && register < Player.NO_REGISTERS) {
-            for (int i = 0; i < board.getPlayersNumber(); i++) {
-                Player player = board.getPlayer(i);
+        if (register >= 0 && register < Player.NO_REGISTERS )
+        {
+            if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
+            {
+                for (int i = 0; i < board.getPlayersNumber(); i++) {
+                    Player player = board.getPlayer(i);
+                    CommandCardField field = player.getProgramField(register);
+                    field.setVisible(true);
+                }
+            }
+            else
+            {
+                Player player = board.getPlayer(appController.webCon.getPlayerNr());
                 CommandCardField field = player.getProgramField(register);
                 field.setVisible(true);
             }
@@ -149,21 +208,64 @@ public class GameController {
 
     // XXX: V2
     private void makeProgramFieldsInvisible() {
-        for (int i = 0; i < board.getPlayersNumber(); i++) {
+        if (appController.role== AppController.Roles.LOCAL || appController.role== AppController.Roles.HOST)
+        {
+        for (int i = 0; i < board.getPlayersNumber(); i++)
+        {
             Player player = board.getPlayer(i);
-            for (int j = 0; j < Player.NO_REGISTERS; j++) {
+            for (int j = 0; j < Player.NO_REGISTERS; j++)
+            {
                 CommandCardField field = player.getProgramField(j);
                 field.setVisible(false);
             }
+        }
+        }
+        else
+        {
+            Player player = board.getPlayer(appController.webCon.getPlayerNr());
+            for (int j = 0; j < Player.NO_REGISTERS; j++)
+            {
+                CommandCardField field = player.getProgramField(j);
+                field.setVisible(false);
+            }
+
+
         }
     }
 
     // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
-        LoadBoard.saveBoard(board,"Share");
 
- //       flicntr.uploadFile();
+        if (appController.role == AppController.Roles.WEBPLAYER)
+        {
+            LoadBoard.saveBoard(board, "Share");
+
+            flicntr.uploadFile();
+        }
+
+        if (appController.role == AppController.Roles.HOST)
+        {
+
+//            flicntr.uploadFile();
+   //         flicntr.setFileToUpload("WebPl2Move");
+   //         flicntr.uploadFile(); //Put a test file on localhost.
+   //         flicntr.setFileToUpload("Share");
+
+
+            for (int i = 1; i < board.getPlayersNumber(); i++)
+            {
+                // Get the cards entered by the Web players
+                flicntr.downloadFile(appController.webHost.getIpWebPlyayer(i-1));
+                LoadBoard.loadCardAndProg(board,"ShareIn", board.getPlayer(i));
+  //              System.out.println(board.getPlayer(i).getCardField(0).getCard().command);
+
+            }
+
+
+        }
+
+
 
         continuePrograms();
     }
@@ -212,31 +314,60 @@ public class GameController {
                 //
                 ActionHandler.exePushPanel(FindSpace.ofPlayer(board.getCurrentPlayer()), currentPlayer, step);
                 //
-                if (nextPlayerNumber < board.getPlayersNumber()) {
-                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
-                } else {
-                    step++;
+                if (appController.role!= AppController.Roles.WEBPLAYER) {
+                    if (nextPlayerNumber < board.getPlayersNumber()) {
+                        board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+                    } else {
+                        step++;
 
-                    if (step < Player.NO_REGISTERS) {
-                        makeProgramFieldsVisible(step);
-                        board.setStep(step);
-                        board.setCurrentPlayer(board.getPlayer(0));
+                        if (step < Player.NO_REGISTERS) {
+                            makeProgramFieldsVisible(step);
+                            board.setStep(step);
+                            board.setCurrentPlayer(board.getPlayer(0));
 //                        for (int i = 0; i < Value.amountOfPlayers; i++) {
 //                            ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
 //                        }
-                    } else {
+                        } else {
 
-                        for (int i = 0; i < Value.amountOfPlayers; i++) {
+                            for (int i = 0; i < Value.amountOfPlayers; i++) {
+                                ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
+                                ActionHandler.exeGiveToken(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
+                                if (board.getPhase() == Phase.GAME_WON) {
+                                    board.setCurrentPlayer(board.getPlayer(i));
+                                    return;
+
+                                }
+                            }
+                            startProgrammingPhase();
+                        }
+                    }//xx
+                }
+                else
+                {
+                    if (step < Player.NO_REGISTERS)
+                    {
+                        makeProgramFieldsVisible(step);
+                        board.setStep(step);
+                        board.setCurrentPlayer(board.getPlayer(appController.webCon.getPlayerNr()));
+
+                    } else
+                    {
+/*
+                        for (int i = 0; i < Value.amountOfPlayers; i++)
+                        {
                             ActionHandler.exeAction(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
                             ActionHandler.exeGiveToken(FindSpace.ofPlayer(board.getPlayer(i)), board.getPlayer(i));
-                            if(board.getPhase() == Phase.GAME_WON){
+                            if (board.getPhase() == Phase.GAME_WON) {
                                 board.setCurrentPlayer(board.getPlayer(i));
                                 return;
 
                             }
                         }
+
+ */
                         startProgrammingPhase();
                     }
+
                 }
             } else {
                 // this should not happen
@@ -372,6 +503,49 @@ public class GameController {
 
 
 //        board.setPhase(Phase.ACTIVATION);
+
+    }
+
+    public void webPlayerSendProgram()//
+    {
+        LoadBoard.saveBoard(board,"Share");
+        flicntr.uploadFile();
+
+    }
+
+    public void webPlayerUpdateBoard()
+    {
+        /*
+        flicntr.setFileToUpload("TestHostFil"); // For testing
+        flicntr.uploadFile();
+        flicntr.setFileToUpload("Share");// For testing
+
+         */
+
+        flicntr.downloadFile(appController.webCon.hostIp);
+        LoadBoard.insertInBoard(board, "ShareIn");
+
+        startProgrammingPhase();
+        /*
+        gameController.startProgrammingPhase();
+
+        System.out.println("AppController 3");
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Player player = board.getPlayer(i);
+            LoadBoard.loadCardAndProg(board, jsonFile, player);
+        }
+
+        roboRally.createBoardView(gameController);
+
+         */
+//        RoboRally roboRally= new RoboRally();
+    //    roboRally.createBoardView(this);
+
+        board.setPhase(Phase.PROGRAMMING);
+        board.setCurrentPlayer(board.getPlayer(appController.webCon.playerNr));
+        board.setStep(0);
+
+
 
     }
 

@@ -8,6 +8,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @Author UffeBC
+ *
+ */
 public class BoardCreatorBOA extends SpaceView implements ViewObserver {
 
 

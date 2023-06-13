@@ -152,6 +152,11 @@ public class Player extends Subject {
         return checkToken;
     }
 
+    public void setTokenVal(int val)
+    {
+        checkToken=val;
+    }
+
     public List<FieldAction> getActions() {
         return actions;
     }

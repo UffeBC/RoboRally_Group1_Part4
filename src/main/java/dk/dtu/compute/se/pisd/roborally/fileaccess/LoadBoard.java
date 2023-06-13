@@ -104,6 +104,7 @@ public class LoadBoard
                 result.addPlayer(player);
                 player.setSpace(result.getSpace(playerTemplate.x, playerTemplate.y));
                 player.setHeading(playerTemplate.heading);
+                player.setTokenVal(playerTemplate.checkToken);
 
 
   //              if (playerTemplate.name.equals(player.getName())) {
@@ -121,14 +122,14 @@ public class LoadBoard
 
             }
 
-            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
-            Value.map=valueTemplate.map;
-            Value.amountOfPlayers=valueTemplate.amountOfPlayers;
-            Value.MovePlayer= valueTemplate.MovePlayer;
-            Value.selectedPLayer=valueTemplate.selectedPLayer;
-            Value.clickCounter= valueTemplate.clickCounter;
+//            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
+            Value.map=template.val.map;
+            Value.amountOfPlayers=template.val.amountOfPlayers;
+            Value.MovePlayer= template.val.MovePlayer;
+            Value.selectedPLayer=template.val.selectedPLayer;
+            Value.clickCounter= template.val.clickCounter;
 
-            result.setCurrentPlayer(result.getPlayer(valueTemplate.selectedPLayer));
+            result.setCurrentPlayer(result.getPlayer(template.val.selectedPLayer));
             System.out.println("Current Player loaded: "+result.getCurrentPlayer().getName());
 
             reader.close();
@@ -149,6 +150,94 @@ public class LoadBoard
 
         return null;
     }
+
+    public static void insertInBoard(Board board, String boardname)
+    {
+
+
+
+
+        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+        //      InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + flToLoad[0]);
+        /*
+        if (inputStream == null) {
+            // TODO these constants should be defined somewhere
+            return new Board(8,8);
+        }
+
+         */
+
+        // In simple cases, we can create a Gson object with new Gson():
+        GsonBuilder simpleBuilder = new GsonBuilder().
+                registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
+        Gson gson = simpleBuilder.create();
+
+        FileReader fileReader = null;
+        JsonReader reader = null;
+        try {
+            System.out.println("Load");
+
+            reader = gson.newJsonReader(new InputStreamReader(inputStream));
+
+            BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
+
+
+
+            for (PlayerTemplate playerTemplate: template.players)
+            {
+
+
+
+                board.getPlayer(playerTemplate.number).setSpace(board.getSpace(playerTemplate.x, playerTemplate.y));
+                board.getPlayer(playerTemplate.number).setHeading(playerTemplate.heading);
+                board.getPlayer(playerTemplate.number).setTokenVal(playerTemplate.checkToken);
+
+
+                //              if (playerTemplate.name.equals(player.getName())) {
+                for (int j = 0; j < playerTemplate.cards.length; j++) {
+                    board.getPlayer(playerTemplate.number).getCardField(j).setCard(playerTemplate.cards[j]);
+
+                }
+                for (int j = 0; j < playerTemplate.program.length; j++) {
+                    board.getPlayer(playerTemplate.number).getProgramField(j).setCard(playerTemplate.program[j]);
+
+                }
+                //             }
+
+
+
+            }
+
+//            ValueTemplate valueTemplate = gson.fromJson(reader, ValueTemplate.class);
+//            Value.map=template.val.map;
+//            Value.amountOfPlayers=template.val.amountOfPlayers;
+//            Value.MovePlayer= template.val.MovePlayer;
+//            Value.selectedPLayer=template.val.selectedPLayer;
+//            Value.clickCounter= template.val.clickCounter;
+
+            board.setCurrentPlayer(board.getPlayer(template.val.selectedPLayer));
+            System.out.println("Current Player loaded: "+board.getCurrentPlayer().getName());
+
+            reader.close();
+  //          return result;
+        } catch (IOException e1) {
+            if (reader != null) {
+                try {
+                    reader.close();
+                    inputStream = null;
+                } catch (IOException e2) {}
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e2) {}
+            }
+        }
+
+
+    }
+
 
     public static void loadCardAndProg(Board board, String boardname, Player player)
     {
@@ -183,16 +272,20 @@ public class LoadBoard
             for (PlayerTemplate playerTemplate: template.players)
             {
 
-                System.out.println(player.getName());
+  //              System.out.println(player.getName());
 
-                if (playerTemplate.name.equals(player.getName())) {
+                if (playerTemplate.name.equals(player.getName()))
+                {
                     for (int j = 0; j < playerTemplate.cards.length; j++) {
                         player.getCardField(j).setCard(playerTemplate.cards[j]);
+   //                     board.getPlayer(j).getProgramField(j).setCard(playerTemplate.cards[j]);
+
 
                     }
                     for (int j = 0; j < playerTemplate.program.length; j++) {
-                        player.getProgramField(j).setCard(playerTemplate.program[j]);
-
+                       player.getProgramField(j).setCard(playerTemplate.program[j]);
+                        //                    board.getPlayer(j).getProgramField(j).setCard(playerTemplate.program[j]);
+ //                       System.out.println(player.getProgramField(j).getCard().command);
                     }
                 }
 
@@ -254,6 +347,7 @@ public class LoadBoard
             playerTemplate.number=player.board.getPlayerNumber(player);
             playerTemplate.x=player.getSpace().x;
             playerTemplate.y=player.getSpace().y;
+            playerTemplate.checkToken=player.getCheckToken();
 
 
             playerTemplate.cards = new CommandCard[player.getCards().length];
