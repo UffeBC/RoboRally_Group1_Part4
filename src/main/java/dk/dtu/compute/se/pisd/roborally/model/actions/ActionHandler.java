@@ -1,10 +1,8 @@
 package dk.dtu.compute.se.pisd.roborally.model.actions;
 
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Core.Value;
 import dk.dtu.compute.se.pisd.roborally.model.Maps.*;
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
 
 import java.util.Objects;
 
@@ -151,4 +149,6 @@ public class ActionHandler {
             }
         }
     }
+
+
 }
