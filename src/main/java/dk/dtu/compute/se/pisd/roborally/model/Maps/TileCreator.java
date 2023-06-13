@@ -6,6 +6,11 @@ import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import dk.dtu.compute.se.pisd.roborally.view.ViewObserver;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This Class has methods to place pictures on spaces...
+ * this is done using the recourses' folder  -  src/main/resources
+ * @Author UffeBC
+ */
 public class TileCreator extends SpaceView  implements ViewObserver {
 
     public TileCreator(@NotNull Space space) {
@@ -85,7 +90,7 @@ public class TileCreator extends SpaceView  implements ViewObserver {
 
 
             // ------------ CHECKPOINTS END ------------ //
-
+            // if all else fails--
         } catch (Exception e) {
             if ((space.space.x + space.space.y) % 2 == 0) { // BASIC
                 space.setStyle("-fx-background-color: white;");

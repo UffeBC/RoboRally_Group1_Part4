@@ -8,7 +8,7 @@ public class Testing extends TileCreator {
     public Testing(@NotNull Space space) {super(space);}
 
     public static final String[][] Testing = {
-//        0     1     2     3     4     5     6     7     8     9     10    11
+//            0     1     2     3     4     5     6     7     8     9     10    11
             // Testing
             {"4A", "0A", "1A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A"},
             {"4A", "3A", "2A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A"},
@@ -23,7 +23,7 @@ public class Testing extends TileCreator {
             {"4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A"},
             {"4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A"},
 
-
+            // used for resetting the testing map
             /*      ---     EMPTY MAP    ---...---...---...---...---...---...---...---...---...---
             {"4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A"},
             {"4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A", "4A"},

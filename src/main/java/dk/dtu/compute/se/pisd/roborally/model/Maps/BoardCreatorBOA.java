@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @Author UffeBC
- *
+ * BoardCreator places the pictures on each field by calling the TileCreator class
  */
 public class BoardCreatorBOA extends SpaceView implements ViewObserver {
 
@@ -66,17 +66,6 @@ public class BoardCreatorBOA extends SpaceView implements ViewObserver {
 
         // The (Root) = src/main/resources/board_tiles_with_gridlines.jpg
 
-        // TEST
-        // TEST
-
-        List<Class<? extends TileCreator>> MapReference = new ArrayList</*Class<? extends TileCreator>*/>();
-        MapReference.add(GoldStripe.class);
-        MapReference.add(RingOfDeath.class);
-        MapReference.add(WhirlWind.class);
-//        MapReference.add(TestingMap.class);
-
-        // TEST
-        // TEST
 
     }
 
