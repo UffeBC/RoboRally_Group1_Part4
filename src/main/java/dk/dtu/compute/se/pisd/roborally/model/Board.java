@@ -231,7 +231,7 @@ public class Board extends Subject {
     public int getNrOfCurrentPlayer()
     {
         for (int i = 0; i < players.size(); i++) {
-            System.out.println("nrCurrentPlayer"+i);
+
             if (players.get(i)== current) return i;
 
         }

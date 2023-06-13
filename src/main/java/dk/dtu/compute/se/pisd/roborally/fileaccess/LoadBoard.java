@@ -88,7 +88,7 @@ public class LoadBoard
         FileReader fileReader = null;
         JsonReader reader = null;
         try {
-            System.out.println("Load");
+            System.out.println("LoadBoard");
 
             reader = gson.newJsonReader(new InputStreamReader(inputStream));
 
@@ -188,7 +188,7 @@ public class LoadBoard
         FileReader fileReader = null;
         JsonReader reader = null;
         try {
-            System.out.println("Load");
+
 
             reader = gson.newJsonReader(new InputStreamReader(inputStream));
 
@@ -277,7 +277,7 @@ public class LoadBoard
 
         JsonReader reader = null;
         try {
-            System.out.println("Load");
+
 
             reader = gson.newJsonReader(new InputStreamReader(inputStream));
 
