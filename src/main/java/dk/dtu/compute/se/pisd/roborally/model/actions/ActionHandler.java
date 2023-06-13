@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * This class has methods for movements of conveyor-belts and push panels,
- * as well as checkpoint tokens required to win the game.
+ * as well as checkpoint tokens required to win the game and walls.
  * @Author Anders and UffeBC
  */
 public class ActionHandler {
