@@ -434,8 +434,9 @@ public class GameController {
             if (target != null) {
                 hitPlayer(space, heading);
                 target.setPlayer(player);
-
+                ActionHandler.exeWall(player, oldSpace, space);
             }
+            ActionHandler.exWall(player, FindSpace.ofPlayer(player), space);
         }
         if (player.board.getPhase()==Phase.PLAYER_INTERACTION){
             executeStep();

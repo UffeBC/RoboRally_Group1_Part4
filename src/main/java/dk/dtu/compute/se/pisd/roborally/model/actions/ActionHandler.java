@@ -149,6 +149,49 @@ public class ActionHandler {
             }
         }
     }
-
+    public static void exeWall(Player player, String space, Space reSpace){
+        if(space.equals("6L") || space.equals("5F")){
+            if(player.getHeading() == Heading.EAST){
+                player.setSpace(reSpace);
+            }
+        }
+        if(space.equals("4L") || space.equals("5E")){
+            if(player.getHeading() == Heading.WEST){
+                player.setSpace(reSpace);
+            }
+        }
+        if(space.equals("5L") || space.equals("4F")){
+            if(player.getHeading() == Heading.NORTH){
+                player.setSpace(reSpace);
+            }
+        }
+        if(space.equals("6K") || space.equals("4E")){
+            if(player.getHeading() == Heading.SOUTH){
+                player.setSpace(reSpace);
+            }
+        }
+    }
+    public static void exWall(Player player, String space, Space reSpace){
+        if(space.equals("6L") || space.equals("5F")){
+            if(player.getHeading() == Heading.WEST){
+                player.setSpace(reSpace);
+            }
+        }
+        if(space.equals("4L") || space.equals("5E")){
+            if(player.getHeading() == Heading.EAST){
+                player.setSpace(reSpace);
+            }
+        }
+        if(space.equals("5L") || space.equals("4F")){
+            if(player.getHeading() == Heading.SOUTH){
+                player.setSpace(reSpace);
+            }
+        }
+        if(space.equals("6K") || space.equals("4E")){
+            if(player.getHeading() == Heading.NORTH){
+                player.setSpace(reSpace);
+            }
+        }
+    }
 
 }
