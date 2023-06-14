@@ -120,6 +120,8 @@ public class ActionHandler {
             return WhirlWind.nrCheckPoints;
         else if (Objects.equals(Value.map, "RingOfDeath"))
             return RingOfDeath.nrCheckPoints;
+        else if (Objects.equals(Value.map, "Testing"))
+            return Testing.nrCheckPoints;
         return 0;
     }
 
