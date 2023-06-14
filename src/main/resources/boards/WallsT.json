@@ -14,45 +14,45 @@
           "command": "FORWARD",
           "observers": []
         },
-        null,
+        {
+          "command": "FORWARD",
+          "observers": []
+        },
         null,
         null,
         null
       ],
       "cards": [
         {
+          "command": "FORWARD",
+          "observers": []
+        },
+        {
           "command": "RIGHT",
+          "observers": []
+        },
+        {
+          "command": "FAST_FORWARD",
+          "observers": []
+        },
+        {
+          "command": "OPTION_FWD_FAST_FORWARD",
+          "observers": []
+        },
+        {
+          "command": "OPTION_LEFT_RIGHT",
           "observers": []
         },
         null,
-        {
-          "command": "LEFT",
-          "observers": []
-        },
+        null,
         {
           "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "LEFT",
-          "observers": []
-        },
-        {
-          "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "LEFT",
-          "observers": []
-        },
-        {
-          "command": "RIGHT",
           "observers": []
         }
       ],
-      "heading": "WEST",
-      "x": 6,
-      "y": 2
+      "heading": "NORTH",
+      "x": 5,
+      "y": 3
     },
     {
       "name": "Player 2",
@@ -76,10 +76,6 @@
           "observers": []
         },
         {
-          "command": "LEFT",
-          "observers": []
-        },
-        {
           "command": "FORWARD",
           "observers": []
         },
@@ -88,11 +84,15 @@
           "observers": []
         },
         {
-          "command": "LEFT",
+          "command": "RIGHT",
           "observers": []
         },
         {
           "command": "OPTION_LEFT_RIGHT",
+          "observers": []
+        },
+        {
+          "command": "RIGHT",
           "observers": []
         },
         {
@@ -116,16 +116,18 @@
         },
         null,
         null,
-        null,
-        null
-      ],
-      "cards": [
         {
           "command": "LEFT",
           "observers": []
         },
         {
-          "command": "OPTION_FWD_FAST_FORWARD",
+          "command": "FORWARD",
+          "observers": []
+        }
+      ],
+      "cards": [
+        {
+          "command": "RIGHT",
           "observers": []
         },
         {
@@ -133,17 +135,15 @@
           "observers": []
         },
         {
-          "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
           "command": "RIGHT",
           "observers": []
         },
+        null,
         {
-          "command": "RIGHT",
+          "command": "OPTION_LEFT_RIGHT",
           "observers": []
         },
+        null,
         null,
         {
           "command": "LEFT",
