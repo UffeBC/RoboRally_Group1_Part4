@@ -2,7 +2,7 @@
   "width": 15,
   "height": 12,
   "spaces": [],
-  "numberOfPlayers": 4,
+  "numberOfPlayers": 3,
   "players": [
     {
       "name": "Player 1",
@@ -10,10 +10,7 @@
       "checkToken": 0,
       "number": 0,
       "program": [
-        {
-          "command": "OPTION_LEFT_RIGHT",
-          "observers": []
-        },
+        null,
         null,
         null,
         null,
@@ -25,20 +22,11 @@
           "observers": []
         },
         {
-          "command": "FAST_FORWARD",
+          "command": "RIGHT",
           "observers": []
         },
         {
-          "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "FORWARD",
-          "observers": []
-        },
-        null,
-        {
-          "command": "FAST_FORWARD",
+          "command": "OPTION_LEFT_RIGHT",
           "observers": []
         },
         {
@@ -46,12 +34,24 @@
           "observers": []
         },
         {
+          "command": "RIGHT",
+          "observers": []
+        },
+        {
+          "command": "OPTION_LEFT_RIGHT",
+          "observers": []
+        },
+        {
+          "command": "RIGHT",
+          "observers": []
+        },
+        {
           "command": "FORWARD",
           "observers": []
         }
       ],
-      "heading": "EAST",
-      "x": 0,
+      "heading": "SOUTH",
+      "x": 5,
       "y": 2
     },
     {
@@ -68,19 +68,7 @@
       ],
       "cards": [
         {
-          "command": "LEFT",
-          "observers": []
-        },
-        {
-          "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
           "command": "RIGHT",
-          "observers": []
-        },
-        {
-          "command": "OPTION_LEFT_RIGHT",
           "observers": []
         },
         {
@@ -88,20 +76,32 @@
           "observers": []
         },
         {
+          "command": "FORWARD",
+          "observers": []
+        },
+        {
           "command": "RIGHT",
           "observers": []
         },
         {
-          "command": "FAST_FORWARD",
+          "command": "OPTION_FWD_FAST_FORWARD",
           "observers": []
         },
         {
-          "command": "FAST_FORWARD",
+          "command": "OPTION_FWD_FAST_FORWARD",
+          "observers": []
+        },
+        {
+          "command": "OPTION_FWD_FAST_FORWARD",
+          "observers": []
+        },
+        {
+          "command": "FORWARD",
           "observers": []
         }
       ],
       "heading": "SOUTH",
-      "x": 1,
+      "x": 3,
       "y": 1
     },
     {
@@ -122,52 +122,6 @@
           "observers": []
         },
         {
-          "command": "FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "RIGHT",
-          "observers": []
-        },
-        {
-          "command": "OPTION_LEFT_RIGHT",
-          "observers": []
-        },
-        {
-          "command": "OPTION_FWD_FAST_FORWARD",
-          "observers": []
-        },
-        {
-          "command": "FORWARD",
-          "observers": []
-        },
-        {
-          "command": "OPTION_LEFT_RIGHT",
-          "observers": []
-        },
-        {
-          "command": "RIGHT",
-          "observers": []
-        }
-      ],
-      "heading": "SOUTH",
-      "x": 0,
-      "y": 4
-    },
-    {
-      "name": "Player 4",
-      "color": "orange",
-      "checkToken": 0,
-      "number": 3,
-      "program": [
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "cards": [
-        {
           "command": "OPTION_FWD_FAST_FORWARD",
           "observers": []
         },
@@ -180,7 +134,11 @@
           "observers": []
         },
         {
-          "command": "FORWARD",
+          "command": "LEFT",
+          "observers": []
+        },
+        {
+          "command": "RIGHT",
           "observers": []
         },
         {
@@ -190,26 +148,18 @@
         {
           "command": "OPTION_LEFT_RIGHT",
           "observers": []
-        },
-        {
-          "command": "LEFT",
-          "observers": []
-        },
-        {
-          "command": "RIGHT",
-          "observers": []
         }
       ],
       "heading": "SOUTH",
-      "x": 1,
-      "y": 5
+      "x": 11,
+      "y": 1
     }
   ],
   "val": {
-    "map": "WhirlWind",
-    "amountOfPlayers": 4,
+    "map": "RingOfDeath",
+    "amountOfPlayers": 3,
     "MovePlayer": false,
-    "selectedPLayer": 1,
+    "selectedPLayer": 0,
     "clickCounter": 0
   }
 }
