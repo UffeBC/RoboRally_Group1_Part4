@@ -51,8 +51,6 @@ import java.util.Optional;
  */
 public class LoadBoard
 {
-
-
     private static final String BOARDSFOLDER = "boards";
 
     private static final String DEFAULTBOARD = "defaultboard";
